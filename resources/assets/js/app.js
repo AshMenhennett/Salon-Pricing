@@ -17,7 +17,7 @@ Vue.component('products-table', require('./components/ProductsTableComponent.vue
 Vue.component('services-table', require('./components/ServicesTableComponent.vue'));
 
 Vue.component('product-pricing', require('./components/ProductPricingComponent.vue'));
-Vue.component('services-pricing', require('./components/ServicePricingComponent.vue'));
+Vue.component('service-pricing', require('./components/ServicePricingComponent.vue'));
 Vue.component('all-pricing', require('./components/AllPricingComponent.vue'));
 
 const app = new Vue({

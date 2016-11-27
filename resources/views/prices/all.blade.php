@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Product &amp; Service Pricing</div>
+                <div class="panel-heading">Service &amp; Product Pricing</div>
 
                 <div class="panel-body">
                     <all-pricing></all-pricing>

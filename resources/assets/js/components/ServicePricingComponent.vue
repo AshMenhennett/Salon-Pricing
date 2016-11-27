@@ -1,20 +1,22 @@
 <template>
-    <div class="panel-body" v-if="loaded">
-        <a href="/products/create" class="btn btn-default btn-top btn-block">Add a Product</a>
-        <table v-if="products.length" class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Name</th> <th @click.prevent="orderByBrand()">Brand &nbsp; <span class="glyphicon glyphicon-sort pull-right"></span></th> <th>Price</th> <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                 <tr v-for="product in products">
-                    <td>{{ product.name }}</td> <td>{{ product.brand }}</td> <td>${{ product.price }}</td> <td><a href="#" @click.prevent="destroy(product.id)" class="pull-right text-danger manipulate-link"><span class="glyphicon glyphicon-remove"></span></a> &nbsp; <a v-bind:href="'/products/product/' + product.id + '/edit'" class="pull-right text-info manipulate-link"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="panel-body has-footer" v-if="loaded">
+        <a href="#" @click.prevent="orderByTitle()" class="btn btn-default btn-top pull-left">Order <span class="glyphicon glyphicon-sort"></span></a>
+        <br />
+        <br />
+        <ul v-if="services.length" class="list-group">
+             <li v-for="service in services" class="list-group-item">
+                <strong>{{ service.title }}</strong> : ${{ service.price }}
+                <span v-if="!service.priceAdded"><a href="#" @click.prevent="addPrice(service.id, service.price)" class="btn btn-success pull-right">ADD</a></span>
+                <span v-else><a href="#" @click.prevent="subPrice(service.id, service.price)" class="btn btn-danger pull-right">REMOVE</a></span>
+            </li>
+        </ul>
          <div v-else>
-            <p>You currently don't have any products listed.</p>
+            <p>You currently don't have any services listed.</p>
+        </div>
+        <div v-if="services.length" class="total-price-footer">
+            ${{ total.toFixed(2).replace('-', '') }} AUD
+            <br />
+            <a href="#" @click.prevent="clear()" style="font-weight: bolder; color: #ddd; text-decoration: underline;">Clear Price</a>
         </div>
     </div>
 </template>
@@ -23,29 +25,52 @@
     export default {
         data() {
             return {
-                 products: [],
+                 services: [],
+                 total: 0,
                  loaded: false
             }
         },
         methods: {
-            fetchProducts () {
-                return this.$http.get('/products/fetch').then((response) => {
-                    this.products = response.body;
+            fetchServices () {
+                return this.$http.get('/services/fetch').then((response) => {
+                    this.services = response.body;
+                    for (var i = 0; i < this.services.length; i++) {
+                        this.services[i]['priceAdded'] = false;
+                    }
                 });
             },
-            orderByBrand () {
-                this.products.reverse();
+            orderByTitle () {
+                this.services.reverse();
             },
-            destroy (id) {
-                for (var i = 0; i < this.products.length; i++) {
-                    (this.products[i].id === id) ? this.products.splice(i, 1) : false;
+            addPrice (id, price) {
+                this.total += parseFloat(price);
+                for (var i = 0; i < this.services.length; i++) {
+                    if (this.services[i].id === id) {
+                        this.services[i].priceAdded = true;
+                    }
                 }
-                return this.$http.delete('/products/product/' + id);
+            },
+            subPrice (id, price) {
+                this.total -= parseFloat(price);
+                for (var i = 0; i < this.services.length; i++) {
+                    if (this.services[i].id === id) {
+                        this.services[i].priceAdded = false;
+                    }
+                }
+            },
+            clear () {
+                this.total = 0;
+                for (var i = 0; i < this.services.length; i++) {
+                    if (this.services[i].priceAdded === true) {
+                        this.services[i].priceAdded = false;
+                    }
+                }
             }
         },
         mounted() {
-            this.fetchProducts();
+            this.fetchServices();
             this.loaded = true;
+            this.total = 0;
         }
     }
 </script>

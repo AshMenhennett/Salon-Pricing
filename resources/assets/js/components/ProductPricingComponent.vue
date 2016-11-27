@@ -14,7 +14,7 @@
             <p>You currently don't have any products listed.</p>
         </div>
         <div v-if="products.length" class="total-price-footer">
-            ${{ parseFloat(total.toFixed(2)) }} AUD
+            ${{ total.toFixed(2).replace('-', '') }} AUD
             <br />
             <a href="#" @click.prevent="clear()" style="font-weight: bolder; color: #ddd; text-decoration: underline;">Clear Price</a>
         </div>
