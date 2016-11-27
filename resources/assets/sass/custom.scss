@@ -16,13 +16,20 @@
     padding-bottom: 25px !important;
 }
 
+.clear-price {
+    font-weight: bolder;
+    text-decoration: underline;
+    color: #ddd;
+}
+
 footer.total-price-footer {
     position: fixed;
     bottom: 0;
     left:0;
     width: 100%;
-    padding: 12px;
+    padding: 18px;
     background: #3498db;
+    font-size: 1.4em;
     color: #fff;
     text-align: center;
 }

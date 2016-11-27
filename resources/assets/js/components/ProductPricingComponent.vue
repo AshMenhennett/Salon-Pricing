@@ -19,7 +19,7 @@
         <footer v-if="products.length" class="total-price-footer">
             ${{ total.toFixed(2).replace('-', '') }} AUD
             <br />
-            <a href="#" @click.prevent="clear()" style="font-weight: bolder; color: #ddd; text-decoration: underline;">Clear Price</a>
+            <a href="#" @click.prevent="clear()" class="clear-price">Clear Price</a>
         </footer>
     </div>
 </template>

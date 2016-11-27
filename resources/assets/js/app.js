@@ -9,7 +9,7 @@ require('./bootstrap');
 
 $(document).ready(function () {
     if ($('.has-price-footer').length > 0) {
-        $('.footer-container').css('margin-bottom', '65px');
+        $('.footer-container').css('margin-bottom', '95px');
     }
 });
 
