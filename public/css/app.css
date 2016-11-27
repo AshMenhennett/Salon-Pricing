@@ -1,7 +1,11 @@
 @charset "UTF-8";
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+.btn.btn-top {
+  margin-bottom: 15px;
+}
+
 @media (min-width: 992px) {
-  .col-md-8 .btn.btn-form-lower {
+  .btn.btn-form-lower {
     margin-top: 27px;
   }
 }
@@ -10,15 +14,11 @@
   padding: 6px;
 }
 
-.btn.btn-top {
-  margin-bottom: 15px;
+.list-group-item {
+  padding-bottom: 25px !important;
 }
 
-.has-footer {
-  margin-bottom: 45px !important;
-}
-
-.total-price-footer {
+footer.total-price-footer {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -29,8 +29,20 @@
   text-align: center;
 }
 
-.list-group-item {
-  padding-bottom: 25px !important;
+.footer-container {
+  border: none;
+  border-top: 1px solid #d3e0e9;
+  border-bottom: 1px solid #d3e0e9;
+  padding: 20px;
+  background: #fff;
+}
+
+.footer-container footer {
+  text-align: center;
+}
+
+.footer-container footer a {
+  color: #636b6f !important;
 }
 
 /*!

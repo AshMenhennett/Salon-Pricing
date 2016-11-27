@@ -1,5 +1,5 @@
 <template>
-    <div class="panel-body has-footer" v-if="loaded">
+    <div class="panel-body has-price-footer" v-if="loaded">
         <h4>Services</h4>
         <div v-if="services.length">
             <a href="#" @click.prevent="orderByTitle()" class="btn btn-default btn-top pull-left">Order Services <span class="glyphicon glyphicon-sort"></span></a>
@@ -34,11 +34,11 @@
             <p>You currently don't have any products listed.</p>
         </div>
 
-        <div v-if="services.length || products.length" class="total-price-footer">
-            ${{ total.toFixed(2) }} AUD
+        <footer v-if="services.length || products.length" class="total-price-footer">
+            ${{ total.toFixed(2).replace('-', '') }} AUD
             <br />
             <a href="#" @click.prevent="clear()" style="font-weight: bolder; color: #ddd; text-decoration: underline;">Clear Price</a>
-        </div>
+        </footer>
     </div>
 </template>
 
@@ -78,32 +78,30 @@
             addPrice (type, id, price) {
                 this.total += parseFloat(price);
                 if (type === 'service') {
-                    for (var i = 0; i < this.services.length; i++) {
-                        if (this.services[i].id === id) {
-                            this.services[i].priceAdded = true;
-                        }
-                    }
+                    this.changeServicePriceAddedProp(id, true);
                 } else {
-                    for (var i = 0; i < this.products.length; i++) {
-                        if (this.products[i].id === id) {
-                            this.products[i].priceAdded = true;
-                        }
-                    }
+                    this.changeProductPriceAddedProp(id, true);
                 }
             },
             subPrice (type, id, price) {
                 this.total -= parseFloat(price);
                 if (type === 'service') {
-                    for (var i = 0; i < this.services.length; i++) {
-                        if (this.services[i].id === id) {
-                            this.services[i].priceAdded = false;
-                        }
-                    }
+                    this.changeServicePriceAddedProp(id, false);
                 } else {
-                    for (var i = 0; i < this.products.length; i++) {
-                        if (this.products[i].id === id) {
-                            this.products[i].priceAdded = false;
-                        }
+                    this.changeProductPriceAddedProp(id, false);
+                }
+            },
+            changeServicePriceAddedProp (id, val) {
+                for (var i = 0; i < this.services.length; i++) {
+                    if (this.services[i].id === id) {
+                        this.services[i].priceAdded = val;
+                    }
+                }
+            },
+            changeProductPriceAddedProp (id, val) {
+                for (var i = 0; i < this.products.length; i++) {
+                    if (this.products[i].id === id) {
+                        this.products[i].priceAdded = val;
                     }
                 }
             },

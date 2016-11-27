@@ -7,6 +7,12 @@
 
 require('./bootstrap');
 
+$(document).ready(function () {
+    if ($('.has-price-footer').length > 0) {
+        $('.footer-container').css('margin-bottom', '65px');
+    }
+});
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

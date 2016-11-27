@@ -7,9 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Service &amp; Product Pricing</div>
 
-                <div class="panel-body">
-                    <all-pricing></all-pricing>
-                </div>
+                <all-pricing></all-pricing>
             </div>
         </div>
     </div>

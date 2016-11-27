@@ -83,6 +83,7 @@
         </nav>
 
         @yield('content')
+        @include('includes.partials._footer')
     </div>
 
     <!-- Scripts -->

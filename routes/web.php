@@ -22,11 +22,11 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/terms-of-service', function () {
     return View::make('legal.terms');
-})->name('terms');
+})->name('legal.terms');
 
 Route::get('/privacy-policy', function () {
     return View::make('legal.privacy');
-})->name('privacy');
+})->name('legal.privacy');
 
 Route::group(['middleware' => ['auth']], function () {
 

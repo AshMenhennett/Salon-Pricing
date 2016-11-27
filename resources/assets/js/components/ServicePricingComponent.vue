@@ -1,5 +1,5 @@
 <template>
-    <div class="panel-body has-footer" v-if="loaded">
+    <div class="panel-body has-price-footer" v-if="loaded">
         <div v-if="services.length">
             <a href="#" @click.prevent="orderByTitle()" class="btn btn-default btn-top pull-left">Order <span class="glyphicon glyphicon-sort"></span></a>
             <br />
@@ -15,11 +15,12 @@
          <div v-else>
             <p>You currently don't have any services listed.</p>
         </div>
-        <div v-if="services.length" class="total-price-footer">
+
+        <footer v-if="services.length" class="total-price-footer">
             ${{ total.toFixed(2).replace('-', '') }} AUD
             <br />
             <a href="#" @click.prevent="clear()" style="font-weight: bolder; color: #ddd; text-decoration: underline;">Clear Price</a>
-        </div>
+        </footer>
     </div>
 </template>
 
@@ -46,17 +47,16 @@
             },
             addPrice (id, price) {
                 this.total += parseFloat(price);
-                for (var i = 0; i < this.services.length; i++) {
-                    if (this.services[i].id === id) {
-                        this.services[i].priceAdded = true;
-                    }
-                }
+                this.changePriceAddedProp(id, true);
             },
             subPrice (id, price) {
                 this.total -= parseFloat(price);
+                this.changePriceAddedProp(id, false);
+            },
+            changePriceAddedProp (id, val) {
                 for (var i = 0; i < this.services.length; i++) {
                     if (this.services[i].id === id) {
-                        this.services[i].priceAdded = false;
+                        this.services[i].priceAdded = val;
                     }
                 }
             },
