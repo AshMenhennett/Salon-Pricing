@@ -1,15 +1,17 @@
 <template>
     <div class="panel-body has-footer" v-if="loaded">
-        <a href="#" @click.prevent="orderByBrand()" class="btn btn-default btn-top pull-left">Order <span class="glyphicon glyphicon-sort"></span></a>
-        <br />
-        <br />
-        <ul v-if="products.length" class="list-group">
-             <li v-for="product in products" class="list-group-item">
-                <strong>{{ product.brand }}</strong>- {{ product.name }} : ${{ product.price }}
-                <span v-if="!product.priceAdded"><a href="#" @click.prevent="addPrice(product.id, product.price)" class="btn btn-success pull-right">ADD</a></span>
-                <span v-else><a href="#" @click.prevent="subPrice(product.id, product.price)" class="btn btn-danger pull-right">REMOVE</a></span>
-            </li>
-        </ul>
+        <div v-if="products.length">
+            <a href="#" @click.prevent="orderByBrand()" class="btn btn-default btn-top pull-left">Order <span class="glyphicon glyphicon-sort"></span></a>
+            <br />
+            <br />
+            <ul class="list-group">
+                 <li v-for="product in products" class="list-group-item">
+                    <strong>{{ product.brand }}</strong>- {{ product.name }} : ${{ product.price }}
+                    <span v-if="!product.priceAdded"><a href="#" @click.prevent="addPrice(product.id, product.price)" class="btn btn-success pull-right">ADD</a></span>
+                    <span v-else><a href="#" @click.prevent="subPrice(product.id, product.price)" class="btn btn-danger pull-right">REMOVE</a></span>
+                </li>
+            </ul>
+        </div>
          <div v-else>
             <p>You currently don't have any products listed.</p>
         </div>

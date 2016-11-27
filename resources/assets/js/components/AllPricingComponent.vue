@@ -1,37 +1,41 @@
 <template>
     <div class="panel-body has-footer" v-if="loaded">
         <h4>Services</h4>
-        <a href="#" @click.prevent="orderByTitle()" class="btn btn-default btn-top pull-left">Order Services <span class="glyphicon glyphicon-sort"></span></a>
-        <br />
-        <br />
-        <ul v-if="services.length" class="list-group">
-             <li v-for="service in services" class="list-group-item">
-                <strong>{{ service.title }}</strong> : ${{ service.price }}
-                <span v-if="!service.priceAdded"><a href="#" @click.prevent="addPrice('service', service.id, service.price)" class="btn btn-success pull-right">ADD</a></span>
-                <span v-else><a href="#" @click.prevent="subPrice('service', service.id, service.price)" class="btn btn-danger pull-right">REMOVE</a></span>
-            </li>
-        </ul>
+        <div v-if="services.length">
+            <a href="#" @click.prevent="orderByTitle()" class="btn btn-default btn-top pull-left">Order Services <span class="glyphicon glyphicon-sort"></span></a>
+            <br />
+            <br />
+            <ul class="list-group">
+                 <li v-for="service in services" class="list-group-item">
+                    <strong>{{ service.title }}</strong> : ${{ service.price }}
+                    <span v-if="!service.priceAdded"><a href="#" @click.prevent="addPrice('service', service.id, service.price)" class="btn btn-success pull-right">ADD</a></span>
+                    <span v-else><a href="#" @click.prevent="subPrice('service', service.id, service.price)" class="btn btn-danger pull-right">REMOVE</a></span>
+                </li>
+            </ul>
+        </div>
          <div v-else>
             <p>You currently don't have any services listed.</p>
         </div>
 
         <h4>Products</h4>
-        <a href="#" @click.prevent="orderByBrand()" class="btn btn-default btn-top pull-left">Order Products<span class="glyphicon glyphicon-sort"></span></a>
-        <br />
-        <br />
-        <ul v-if="products.length" class="list-group">
-             <li v-for="product in products" class="list-group-item">
-                <strong>{{ product.brand }}</strong>- {{ product.name }} : ${{ product.price }}
-                <span v-if="!product.priceAdded"><a href="#" @click.prevent="addPrice('product', product.id, product.price)" class="btn btn-success pull-right">ADD</a></span>
-                <span v-else><a href="#" @click.prevent="subPrice('product', product.id, product.price)" class="btn btn-danger pull-right">REMOVE</a></span>
-            </li>
-        </ul>
+        <div v-if="products.length">
+            <a href="#" @click.prevent="orderByBrand()" class="btn btn-default btn-top pull-left">Order Products<span class="glyphicon glyphicon-sort"></span></a>
+            <br />
+            <br />
+            <ul class="list-group">
+                 <li v-for="product in products" class="list-group-item">
+                    <strong>{{ product.brand }}</strong>- {{ product.name }} : ${{ product.price }}
+                    <span v-if="!product.priceAdded"><a href="#" @click.prevent="addPrice('product', product.id, product.price)" class="btn btn-success pull-right">ADD</a></span>
+                    <span v-else><a href="#" @click.prevent="subPrice('product', product.id, product.price)" class="btn btn-danger pull-right">REMOVE</a></span>
+                </li>
+            </ul>
+        </div>
          <div v-else>
             <p>You currently don't have any products listed.</p>
         </div>
 
         <div v-if="services.length || products.length" class="total-price-footer">
-            ${{ total.toFixed(2).replace('-', '') }} AUD
+            ${{ total.toFixed(2) }} AUD
             <br />
             <a href="#" @click.prevent="clear()" style="font-weight: bolder; color: #ddd; text-decoration: underline;">Clear Price</a>
         </div>

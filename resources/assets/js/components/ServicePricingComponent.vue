@@ -1,15 +1,17 @@
 <template>
     <div class="panel-body has-footer" v-if="loaded">
-        <a href="#" @click.prevent="orderByTitle()" class="btn btn-default btn-top pull-left">Order <span class="glyphicon glyphicon-sort"></span></a>
-        <br />
-        <br />
-        <ul v-if="services.length" class="list-group">
-             <li v-for="service in services" class="list-group-item">
-                <strong>{{ service.title }}</strong> : ${{ service.price }}
-                <span v-if="!service.priceAdded"><a href="#" @click.prevent="addPrice(service.id, service.price)" class="btn btn-success pull-right">ADD</a></span>
-                <span v-else><a href="#" @click.prevent="subPrice(service.id, service.price)" class="btn btn-danger pull-right">REMOVE</a></span>
-            </li>
-        </ul>
+        <div v-if="services.length">
+            <a href="#" @click.prevent="orderByTitle()" class="btn btn-default btn-top pull-left">Order <span class="glyphicon glyphicon-sort"></span></a>
+            <br />
+            <br />
+            <ul class="list-group">
+                 <li v-for="service in services" class="list-group-item">
+                    <strong>{{ service.title }}</strong> : ${{ service.price }}
+                    <span v-if="!service.priceAdded"><a href="#" @click.prevent="addPrice(service.id, service.price)" class="btn btn-success pull-right">ADD</a></span>
+                    <span v-else><a href="#" @click.prevent="subPrice(service.id, service.price)" class="btn btn-danger pull-right">REMOVE</a></span>
+                </li>
+            </ul>
+        </div>
          <div v-else>
             <p>You currently don't have any services listed.</p>
         </div>
