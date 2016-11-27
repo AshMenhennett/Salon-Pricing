@@ -1,0 +1,30 @@
+.col-md-8 {
+   .btn.btn-form-lower {
+        @media (min-width: 992px) {
+            margin-top: 27px;
+        }
+    }
+}
+
+.manipulate-link {
+    padding: 6px;
+}
+
+.btn.btn-top {
+    margin-bottom: 15px;
+}
+
+.total-price-footer {
+    position: fixed;
+    bottom: 0;
+    left:0;
+    width: 100%;
+    padding: 15px;
+    background: #3498db;
+    color: #fff;
+    text-align: center;
+}
+
+.list-group-item {
+    padding-bottom: 25px;
+}
