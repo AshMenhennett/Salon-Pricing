@@ -1,5 +1,5 @@
 <template>
-    <div class="panel-body" v-if="loaded">
+    <div class="panel-body has-footer" v-if="loaded">
         <a href="#" @click.prevent="orderByBrand()" class="btn btn-default btn-top pull-left">Order <span class="glyphicon glyphicon-sort"></span></a>
         <br />
         <br />
@@ -16,7 +16,7 @@
         <div v-if="products.length" class="total-price-footer">
             ${{ parseFloat(total.toFixed(2)) }} AUD
             <br />
-            <a href="#" @click.prevent="clear()" class="btn btn-info btn-top pull-right">Clear Price</a>
+            <a href="#" @click.prevent="clear()" style="font-weight: bolder; color: #ddd; text-decoration: underline;">Clear Price</a>
         </div>
     </div>
 </template>

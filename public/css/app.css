@@ -14,19 +14,23 @@
   margin-bottom: 15px;
 }
 
+.has-footer {
+  margin-bottom: 45px !important;
+}
+
 .total-price-footer {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 15px;
+  padding: 12px;
   background: #3498db;
   color: #fff;
   text-align: center;
 }
 
 .list-group-item {
-  padding-bottom: 25px;
+  padding-bottom: 25px !important;
 }
 
 /*!
