@@ -18,6 +18,12 @@
   padding-bottom: 25px !important;
 }
 
+.clear-price {
+  font-weight: bolder;
+  text-decoration: underline;
+  color: #ddd;
+}
+
 footer.total-price-footer {
   position: fixed;
   bottom: 0;
