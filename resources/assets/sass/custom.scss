@@ -16,6 +16,27 @@
     padding-bottom: 25px !important;
 }
 
+#right-side-price-controls {
+    float: right;
+    input[type="number"] {
+        width: 50px;
+        margin-top: 2px;
+        margin-left: 15px;
+        padding: 3px 3px 6px 3px;
+    }
+}
+
+@media (max-width: 620px) {
+    #right-side-price-controls {
+        display: block;
+        margin: 0 auto;
+        float: none !important;
+    }
+    .list-group-item {
+        text-align: center;
+    }
+}
+
 .clear-price {
     font-weight: bolder;
     text-decoration: underline;
