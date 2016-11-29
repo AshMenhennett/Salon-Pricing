@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -41,7 +41,7 @@
                             </div>
                             <div class="col-md-8">
                                 {{ csrf_field() }}
-                                <button type="submit" class="btn btn-default btn-block pull-right">Update Service</button>
+                                <button type="submit" class="btn btn-default btn-block btn-form-lower pull-right">Update Service</button>
                             </div>
                         </div>
                     </form>

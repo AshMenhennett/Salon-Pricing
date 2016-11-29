@@ -11,7 +11,6 @@ class ProductsController extends Controller
 {
     public function fetchProducts (Request $request)
     {
-        //return $request->user()->products;
         return Product::where('user_id', $request->user()->id)->orderBy('brand', 'asc')->get();
     }
 
@@ -27,8 +26,6 @@ class ProductsController extends Controller
 
     public function submit (ProductCreateFormRequest $request)
     {
-        // authorize
-
         $user = $request->user();
         $product = new Product();
         $product->user_id = $user->id;
@@ -39,35 +36,38 @@ class ProductsController extends Controller
         $product->save();
 
         return redirect()->route('products.index');
-
     }
 
     public function edit (Request $request, Product $product)
     {
-        return view('products.product.edit.index', [
-            'product' => $product,
-        ]);
+        if ($request->user()->can('edit', $product)) {
+            return view('products.product.edit.index', [
+                'product' => $product,
+            ]);
+        }
+
+        return redirect()->route('home');
     }
 
     public function update (ProductUpdateFormRequest $request, Product $product)
     {
-        // authorize
-
-        $product->name = $request->name;
-        $product->brand = $request->brand;
-        $product->price = $request->price;
-        $product->save();
+        if ($request->user()->can('update', $product)) {
+            $product->name = $request->name;
+            $product->brand = $request->brand;
+            $product->price = $request->price;
+            $product->save();
+        }
 
         return redirect()->route('products.index');
-
     }
 
     public function destroy (Request $request, Product $product)
     {
-        // authorize
-        //
-        $product->delete();
+        if ($request->user()->can('destroy', $product)) {
+            $product->delete();
+            return response()->json(null, 200);
+        }
 
-        return response()->json(null, 200);
+        return response()->json(null, 403);
     }
 }

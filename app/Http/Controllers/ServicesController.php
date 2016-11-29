@@ -40,24 +40,33 @@ class ServicesController extends Controller
 
     public function edit (Request $request, Service $service)
     {
-        return view('services.service.edit.index', [
-            'service' => $service,
-        ]);
+        if ($request->user()->can('edit', $service)) {
+            return view('services.service.edit.index', [
+                'service' => $service,
+            ]);
+        }
+
+        return redirect()->route('home');
     }
 
     public function update (ServiceUpdateFormRequest $request, Service $service)
     {
-        $service->title = $request->title;
-        $service->price = $request->price;
-        $service->save();
+        if ($request->user()->can('update', $service)) {
+            $service->title = $request->title;
+            $service->price = $request->price;
+            $service->save();
+        }
 
         return redirect()->route('services.index');
     }
 
     public function destroy (Request $request, Service $service)
     {
-        $service->delete();
+        if ($request->user()->can('destroy', $service)) {
+            $service->delete();
+            return response()->json(null, 200);
+        }
 
-        return response()->json(null, 200);
+        return response()->json(null, 403);
     }
 }
