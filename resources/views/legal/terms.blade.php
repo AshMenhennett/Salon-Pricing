@@ -11,7 +11,7 @@
                     <h4>Definitions:</h4>
                     <ul>
                         <li>The user refers to the end user, you.</li>
-                        <li>The application or software refers to any implementation of computer code, including websites</li>
+                        <li>The application or software refers to any implementation of computer code, including websites.</li>
                         <li>Storage solutions accounts or services may refer to log files stored within the application or software, files or data being stored within the application or software, an active database used to store data by the application or software or a service, such as Amazon's S3 cloud storage that may be used by the application or software to store data and files.</li>
                     </ul>
 
