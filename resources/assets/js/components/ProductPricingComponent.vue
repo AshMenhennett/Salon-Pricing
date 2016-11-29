@@ -7,7 +7,7 @@
             <ul class="list-group">
                  <li v-for="product in products" class="list-group-item">
                     <strong>{{ product.brand }}</strong>- {{ product.name }} : ${{ product.price }}
-                    <span id="right-side-price-controls">
+                    <span class="right-side-price-controls">
                         <input type="number" v-model="product.qty_selected" min="1">
                         <a href="#" v-if="!product.price_added" @click.prevent="addPrice(product.id, product.price)" class="btn btn-success">ADD</a>
                         <a href="#" v-else @click.prevent="subPrice(product.id, product.price)" class="btn btn-danger">REMOVE</a>
@@ -23,7 +23,7 @@
         <footer v-if="products.length" class="total-price-footer">
             ${{ total.toFixed(2).replace('-', '') }} AUD
             <br />
-            <a href="#" @click.prevent="clear()" class="clear-price">Reset Price</a>
+            <a href="#" @click.prevent="clear()" class="clear-price">Reset</a>
         </footer>
     </div>
 </template>
@@ -61,6 +61,7 @@
                 // rather than altering the obj prop for every change in input
                 this.setProductQtyAdded(id, qty);
                 this.total += (parseFloat(price) * qty);
+                // when product.price_added === true: remove button is shown
                 this.setPriceAddedProp(id, true);
             },
             subPrice (id, price) {
@@ -86,16 +87,6 @@
                     this.total -= (parseFloat(price) * qty_selected);
                     this.setProductQtyAdded(id, 0);
                     this.setPriceAddedProp(id, false);
-                }
-
-                if (this.getProductQtyAdded(id) === 0) {
-                    // fall back, just in case
-                    this.setPriceAddedProp(id, false);
-                }
-
-                if (parseFloat(this.total) < 0.001) {
-                    // if the total is essentially zero, clear everthing, just to make sure everything is functioning as expected
-                    this.clear();
                 }
             },
             setPriceAddedProp (id, val) {

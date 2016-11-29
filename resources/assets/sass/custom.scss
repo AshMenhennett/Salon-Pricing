@@ -16,7 +16,7 @@
     padding-bottom: 25px !important;
 }
 
-#right-side-price-controls {
+.right-side-price-controls {
     float: right;
     input[type="number"] {
         width: 50px;
@@ -27,7 +27,7 @@
 }
 
 @media (max-width: 620px) {
-    #right-side-price-controls {
+    .right-side-price-controls {
         display: block;
         margin: 0 auto;
         float: none !important;

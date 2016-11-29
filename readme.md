@@ -1,40 +1,38 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img width="150"src="https://laravel.com/laravel.png"></a></p>
+# Beauty Salon Pricing
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+This is a repository for a beauty salon (product and service) pricing list, built with Laravel 5.3 and Vue 2.
 
-## About Laravel
+## Functionality
+- Allows user to register and create products and services.
+- Each User may have many products and services.
+- Each Product and Service belong to one User.
+- Products are defined by a ```user_id```, ```brand```, ```name``` and ```price```.
+- Services are defined by a ```user_id```, ```title``` and ```price```.
+- Products and Services, once created, can be edited and deleted via the 'backend' UI.
+- All products and services are available for viewing, in a price listing UI, seperate to the 'backend' view.
+- The price listing view has the option to add a quantity of items to the total price, as well as removing a specified quantity of the item.
+- Products and Services may be sorted by brand and title, respectively.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+*Note, the user registration controller currently restricts registration to only one user, as per the project specifications. To remove this restriction, simply remove the ```no_accounts``` validation rule in ```App\Http\Controllers\Auth\RegisterController.php#52```.*
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+##Custom Validation rules
+As well as the ```no_accounts``` validation rule, used in the ```RegisterController```, two other custom validation rules, ```dollars``` and ```allowed_dollar_amount```.
+The ```dollars``` validation rule uses the following pattern: ```/^\d{0,5}(\.\d{2})?$/```, to verify that a value is in the following format: ```123.45```.
+The ```allowed_dollar_amount```  uses the following pattern: ```/^\d{0,5}(\.\d{2})?$/```, to verify that a value is has a maximum of 5 whole numbers, preceeding the ```.``` and two decimal places.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+## Screenshot
+![Product and Service pricelist](https://cloud.githubusercontent.com/assets/9494635/20696758/3e09101a-b645-11e6-9a21-ac85d8a55e8e.PNG)
+The price list in use.
 
-## Learning Laravel
+## Installation & Configuration
+If you would like to install this project, treat it as you would any other Laravel application, keeping in mind some additional crucial environment variables:
+- ```APP_URL``` : the url of the application. This variable is used to link to the application.
+- ```MAIL_FROM_EMAIL``` and ```MAIL_FROM_NAME```: the 'from' email address and name. This is used for sending out emails.
+- ```COPY_NAME``` and ```COPY_URL```: the text and link in footer, used for dev details.
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+*Remember to either remove references to the legal views routes, or add in your own views under ```legal.terms``` and ```legal.privacy```*
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+Further steps:
+- Set the ```APP_ENV``` environment variable to ```production``` when the app is on a live sever, to force HTTPS connections on all routes.
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+*Please do not use the associated legal views, if they still exist in this repository (terms.blade.php and privacy.blade.php). Use at your own peril.*

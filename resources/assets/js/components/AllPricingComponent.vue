@@ -8,8 +8,12 @@
             <ul class="list-group">
                  <li v-for="service in services" class="list-group-item">
                     <strong>{{ service.title }}</strong> : ${{ service.price }}
-                    <span v-if="!service.priceAdded"><a href="#" @click.prevent="addPrice('service', service.id, service.price)" class="btn btn-success pull-right">ADD</a></span>
-                    <span v-else><a href="#" @click.prevent="subPrice('service', service.id, service.price)" class="btn btn-danger pull-right">REMOVE</a></span>
+                    <span class="right-side-price-controls">
+                        <input type="number" v-model="service.qty_selected" min="1">
+                        <a href="#" v-if="!service.price_added" @click.prevent="addPrice('service', service.id, service.price)" class="btn btn-success">ADD</a>
+                        <a href="#" v-else @click.prevent="subPrice('service', service.id, service.price)" class="btn btn-danger">REMOVE</a>
+                        <span><span class="glyphicon glyphicon-shopping-cart"></span> {{ service.qty_added }}</span>
+                    </span>
                 </li>
             </ul>
         </div>
@@ -25,8 +29,12 @@
             <ul class="list-group">
                  <li v-for="product in products" class="list-group-item">
                     <strong>{{ product.brand }}</strong>- {{ product.name }} : ${{ product.price }}
-                    <span v-if="!product.priceAdded"><a href="#" @click.prevent="addPrice('product', product.id, product.price)" class="btn btn-success pull-right">ADD</a></span>
-                    <span v-else><a href="#" @click.prevent="subPrice('product', product.id, product.price)" class="btn btn-danger pull-right">REMOVE</a></span>
+                    <span class="right-side-price-controls">
+                        <input type="number" v-model="product.qty_selected" min="1">
+                        <a href="#" v-if="!product.price_added" @click.prevent="addPrice('product', product.id, product.price)" class="btn btn-success">ADD</a>
+                        <a href="#" v-else @click.prevent="subPrice('product', product.id, product.price)" class="btn btn-danger">REMOVE</a>
+                        <span><span class="glyphicon glyphicon-shopping-cart"></span> {{ product.qty_added }}</span>
+                    </span>
                 </li>
             </ul>
         </div>
@@ -37,7 +45,7 @@
         <footer v-if="services.length || products.length" class="total-price-footer">
             ${{ total.toFixed(2).replace('-', '') }} AUD
             <br />
-            <a href="#" @click.prevent="clear()" class="clear-price">Clear Price</a>
+            <a href="#" @click.prevent="clear()" class="clear-price">Reset</a>
         </footer>
     </div>
 </template>
@@ -56,16 +64,33 @@
             fetchServices () {
                 return this.$http.get('/services/fetch').then((response) => {
                     this.services = response.body;
+                    // for (var i = 0; i < this.services.length; i++) {
+                    //     this.services[i]['priceAdded'] = false;
+                    // }
                     for (var i = 0; i < this.services.length; i++) {
-                        this.services[i]['priceAdded'] = false;
+                        // when a service's price has been added to total, we want to reflect that in the ui
+                        Vue.set(this.services[i], 'price_added', false);
+                        // keep track of qty input element of each service
+                        Vue.set(this.services[i], 'qty_selected', 1);
+                        // keep track of the actual qty of the service
+                        Vue.set(this.services[i], 'qty_added', 0);
                     }
                 });
             },
             fetchProducts () {
                 return this.$http.get('/products/fetch').then((response) => {
                     this.products = response.body;
+                    // for (var i = 0; i < this.products.length; i++) {
+                    //     this.products[i]['priceAdded'] = false;
+                    // }
+                    //
                     for (var i = 0; i < this.products.length; i++) {
-                        this.products[i]['priceAdded'] = false;
+                        // when a product's price has been added to total, we want to reflect that in the ui
+                        Vue.set(this.products[i], 'price_added', false);
+                        // keep track of qty input element of each product
+                        Vue.set(this.products[i], 'qty_selected', 1);
+                        // keep track of the actual qty of the product
+                        Vue.set(this.products[i], 'qty_added', 0);
                     }
                 });
             },
@@ -76,43 +101,175 @@
                 this.products.reverse();
             },
             addPrice (type, id, price) {
-                this.total += parseFloat(price);
+                //this.total += parseFloat(price);
                 if (type === 'service') {
-                    this.changeServicePriceAddedProp(id, true);
+                    // is a service
+                    // this.changeServicePriceAddedProp(id, true);
+
+                    // get the qty input selected
+                    var qty = this.getServiceQtySelected(id);
+                    // set the qty selected to the service obj qty_added prop, saving the inputs state,
+                    // rather than altering the obj prop for every change in input
+                    this.setServiceQtyAdded(id, qty);
+                    this.total += (parseFloat(price) * qty);
+                    // when service.price_added === true: remove button is shown
+                    this.setPriceAddedProp('service', id, true);
                 } else {
-                    this.changeProductPriceAddedProp(id, true);
+                    // is a product
+                    //this.changeProductPriceAddedProp(id, true);
+
+                    // get the qty input selected
+                    var qty = this.getProductQtySelected(id);
+                    // set the qty selected to the product obj qty_added prop, saving the inputs state,
+                    // rather than altering the obj prop for every change in input
+                    this.setProductQtyAdded(id, qty);
+                    this.total += (parseFloat(price) * qty);
+                    // when product.price_added === true: remove button is shown
+                    this.setPriceAddedProp('product', id, true);
                 }
             },
             subPrice (type, id, price) {
-                this.total -= parseFloat(price);
+                //this.total -= parseFloat(price);
                 if (type === 'service') {
-                    this.changeServicePriceAddedProp(id, false);
+                    //this.changeServicePriceAddedProp(id, false);
+
+                    // qty input by user
+                    var qty_selected = this.getServiceQtySelected(id);
+                    if (qty_selected > this.getServiceQtyAdded(id)) {
+                        // if the qty_selected input is greater than the qty_added prop of service,
+                        // which is set when user adds qty of service
+                        this.total -= (parseFloat(price) * this.getServiceQtyAdded(id));
+                        this.setServiceQtyAdded(id, 0);
+                        this.setPriceAddedProp('service', id, false);
+                    } else if (qty_selected < this.getServiceQtyAdded(id)) {
+                        // see initial conditional statement comments for insight
+                        this.total -= (parseFloat(price) * qty_selected);
+                        this.setServiceQtyAdded(id, (this.getServiceQtyAdded(id) - qty_selected));
+                        if (this.getServiceQtyAdded(id) > 0) {
+                            // if there is still a qty of the service after removing the qty_selected amount
+                            this.setPriceAddedProp('service', id, true);
+                        } else {
+                            this.setPriceAddedProp('service', id, false);
+                        }
+                    } else {
+                        this.total -= (parseFloat(price) * qty_selected);
+                        this.setServiceQtyAdded(id, 0);
+                        this.setPriceAddedProp('service', id, false);
+                    }
                 } else {
-                    this.changeProductPriceAddedProp(id, false);
-                }
-            },
-            changeServicePriceAddedProp (id, val) {
-                for (var i = 0; i < this.services.length; i++) {
-                    if (this.services[i].id === id) {
-                        this.services[i].priceAdded = val;
+                    // is a product
+                    //this.changeProductPriceAddedProp(id, false);
+
+                    // qty input by user
+                    var qty_selected = this.getProductQtySelected(id);
+                    if (qty_selected > this.getProductQtyAdded(id)) {
+                        // if the qty_selected input is greater than the qty_added prop of product,
+                        // which is set when user adds qty of product
+                        this.total -= (parseFloat(price) * this.getProductQtyAdded(id));
+                        this.setProductQtyAdded(id, 0);
+                        this.setPriceAddedProp('product', id, false);
+                    } else if (qty_selected < this.getProductQtyAdded(id)) {
+                        // see initial conditional statement comments for insight
+                        this.total -= (parseFloat(price) * qty_selected);
+                        this.setProductQtyAdded(id, (this.getProductQtyAdded(id) - qty_selected));
+                        if (this.getProductQtyAdded(id) > 0) {
+                            // if there is still a qty of the product after removing the qty_selected amount
+                            this.setPriceAddedProp('product', id, true);
+                        } else {
+                            this.setPriceAddedProp('product', id, false);
+                        }
+                    } else {
+                        this.total -= (parseFloat(price) * qty_selected);
+                        this.setProductQtyAdded(id, 0);
+                        this.setPriceAddedProp('product', id, false);
                     }
                 }
             },
-            changeProductPriceAddedProp (id, val) {
+            setPriceAddedProp (type, id, val) {
+                if (type === 'service') {
+                    for (var i = 0; i < this.services.length; i++) {
+                        if (this.services[i].id === id) {
+                            this.services[i].price_added = val;
+                        }
+                    }
+                } else {
+                    for (var i = 0; i < this.products.length; i++) {
+                        if (this.products[i].id === id) {
+                            this.products[i].price_added = val;
+                        }
+                    }
+                }
+            },
+            getPriceAddedProp (type, id) {
+                if (type === 'service') {
+                    for (var i = 0; i < this.services.length; i++) {
+                        if (this.services[i].id === id) {
+                            return this.services[i].price_added;
+                        }
+                    }
+                } else {
+                    for (var i = 0; i < this.products.length; i++) {
+                        if (this.products[i].id === id) {
+                            return this.products[i].price_added;
+                        }
+                    }
+                }
+            },
+            getServiceQtySelected (id) {
+                for (var i = 0; i < this.services.length; i++) {
+                    if (this.services[i].id === id) {
+                        return this.services[i].qty_selected;
+                    }
+                }
+            },
+            setServiceQtyAdded (id, qty) {
+                for (var i = 0; i < this.services.length; i++) {
+                    if (this.services[i].id === id) {
+                       this.services[i].qty_added = qty;
+                    }
+                }
+            },
+            getServiceQtyAdded (id) {
+                for (var i = 0; i < this.services.length; i++) {
+                    if (this.services[i].id === id) {
+                       return this.services[i].qty_added;
+                    }
+                }
+            },
+            getProductQtySelected (id) {
                 for (var i = 0; i < this.products.length; i++) {
                     if (this.products[i].id === id) {
-                        this.products[i].priceAdded = val;
+                        return this.products[i].qty_selected;
+                    }
+                }
+            },
+            setProductQtyAdded (id, qty) {
+                for (var i = 0; i < this.products.length; i++) {
+                    if (this.products[i].id === id) {
+                       this.products[i].qty_added = qty;
+                    }
+                }
+            },
+            getProductQtyAdded (id) {
+                for (var i = 0; i < this.products.length; i++) {
+                    if (this.products[i].id === id) {
+                       return this.products[i].qty_added;
                     }
                 }
             },
             clear () {
+                // reset total
                 this.total = 0;
+                // clear services
                 for (var i = 0; i < this.services.length; i++) {
+                    this.services[i].qty_added = 0;
                     if (this.services[i].priceAdded === true) {
                         this.services[i].priceAdded = false;
                     }
                 }
+                // clear products
                 for (var i = 0; i < this.products.length; i++) {
+                    this.products[i].qty_added = 0;
                     if (this.products[i].priceAdded === true) {
                         this.products[i].priceAdded = false;
                     }
