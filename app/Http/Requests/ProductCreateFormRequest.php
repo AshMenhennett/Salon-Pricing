@@ -27,6 +27,7 @@ class ProductCreateFormRequest extends FormRequest
             'name' => 'required|max:255',
             'brand' => 'required|max:255',
             'price' => 'required|dollars|allowed_dollar_amount',
+            'category' => 'required|max:255',
         ];
     }
 }

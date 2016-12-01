@@ -1,5 +1,17 @@
 @charset "UTF-8";
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+.parent-view-group-container {
+  border: 1px solid #d3e0e9;
+  border-radius: 3px;
+  margin-bottom: 15px;
+  padding: 20px;
+}
+
+.parent-view-group-container .well {
+  border-color: #f5f8fa;
+  background-color: #fefefe;
+}
+
 .btn.btn-top {
   margin-bottom: 15px;
 }
@@ -7,6 +19,12 @@
 @media (min-width: 992px) {
   .btn.btn-form-lower {
     margin-top: 27px;
+  }
+}
+
+@media (max-width: 992px) {
+  .custom-cat-btn {
+    margin-bottom: 12px !important;
   }
 }
 

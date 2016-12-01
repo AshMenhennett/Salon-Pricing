@@ -7,12 +7,6 @@
 
 require('./bootstrap');
 
-$(document).ready(function () {
-    if ($('.has-price-footer').length > 0) {
-        $('.footer-container').css('margin-bottom', '95px');
-    }
-});
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -25,6 +19,9 @@ Vue.component('services-table', require('./components/ServicesTableComponent.vue
 Vue.component('product-pricing', require('./components/ProductPricingComponent.vue'));
 Vue.component('service-pricing', require('./components/ServicePricingComponent.vue'));
 Vue.component('all-pricing', require('./components/AllPricingComponent.vue'));
+Vue.component('service-category-select', require('./components/ServiceCategorySelectComponent.vue'));
+Vue.component('product-category-select', require('./components/ProductCategorySelectComponent.vue'));
+Vue.component('product-brand-select', require('./components/ProductBrandSelectComponent.vue'));
 
 const app = new Vue({
     el: '#app'

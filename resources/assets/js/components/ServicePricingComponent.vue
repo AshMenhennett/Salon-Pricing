@@ -1,26 +1,29 @@
 <template>
     <div class="panel-body has-price-footer" v-if="loaded">
-        <div v-if="services.length">
-            <a href="#" @click.prevent="orderByTitle()" class="btn btn-default btn-top pull-left">Order <span class="glyphicon glyphicon-sort"></span></a>
+        <div v-if="categories.data.length">
+            <a href="#" @click.prevent="orderByCategory()" class="btn btn-default btn-top pull-left">Order <span class="glyphicon glyphicon-sort"></span></a>
             <br />
             <br />
-            <ul class="list-group">
-                 <li v-for="service in services" class="list-group-item">
-                    <strong>{{ service.title }}</strong> : ${{ service.price }}
-                    <span class="right-side-price-controls">
-                        <input type="number" v-model="service.qty_selected" min="1">
-                        <a href="#" v-if="!service.price_added" @click.prevent="addPrice(service.id, service.price)" class="btn btn-success">ADD</a>
-                        <a href="#" v-else @click.prevent="subPrice(service.id, service.price)" class="btn btn-danger">REMOVE</a>
-                        <span><span class="glyphicon glyphicon-shopping-cart"></span> {{ service.qty_added }}</span>
-                    </span>
-                </li>
-            </ul>
+            <div v-for="category in categories.data" class="parent-view-group-container">
+                <h4 style="text-transform: capitalize;">{{ category.cat_name }}</h4>
+                <ul class="list-group">
+                    <li class="list-group-item" v-for="service in category.services">
+                        <strong>{{ service.title }}</strong> : ${{ service.price }}
+                        <span class="right-side-price-controls">
+                            <input type="number" v-model="service.qty_selected" min="1">
+                            <a href="#" v-if="!service.price_added" @click.prevent="addPrice(service.id, service.price)" class="btn btn-success">ADD</a>
+                            <a href="#" v-else @click.prevent="subPrice(service.id, service.price)" class="btn btn-danger">REMOVE</a>
+                            <span><span class="glyphicon glyphicon-shopping-cart"></span> {{ service.qty_added }}</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
         </div>
          <div v-else>
             <p>You currently don't have any services listed.</p>
         </div>
 
-        <footer v-if="services.length" class="total-price-footer">
+        <footer v-if="categories.data.length" class="total-price-footer">
             ${{ total.toFixed(2).replace('-', '') }} AUD
             <br />
             <a href="#" @click.prevent="clear()" class="clear-price">Reset</a>
@@ -32,7 +35,9 @@
     export default {
         data() {
             return {
-                 services: [],
+                 categories: {
+                    data: []
+                 },
                  total: 0,
                  loaded: false
             }
@@ -40,19 +45,32 @@
         methods: {
             fetchServices () {
                 return this.$http.get('/services/fetch').then((response) => {
-                    this.services = response.body;
-                    for (var i = 0; i < this.services.length; i++) {
-                        // when a service's price has been added to total, we want to reflect that in the ui
-                        Vue.set(this.services[i], 'price_added', false);
-                        // keep track of qty input element of each service
-                        Vue.set(this.services[i], 'qty_selected', 1);
-                        // keep track of the actual qty of the service
-                        Vue.set(this.services[i], 'qty_added', 0);
+                    // getting all services, listed under their category.
+                    // data structure: {"data": [{cat_name: string, services: [{service1, ..., ...}]}]}
+                    this.categories = response.body;
+                    for (var i = 0; i < this.categories.data.length; i++) {
+                        for (var j = 0; j < this.categories.data[i].services.length; j++) {
+                            // when a service's price has been added to total, we want to reflect that in the ui
+                            Vue.set(this.categories.data[i].services[j], 'price_added', false);
+                            // keep track of qty input element of each service
+                            Vue.set(this.categories.data[i].services[j], 'qty_selected', 1);
+                            // keep track of the actual qty of the service
+                            Vue.set(this.categories.data[i].services[j], 'qty_added', 0);
+                        }
                     }
+
+                    $(document).ready(function () {
+                        if ($('.has-price-footer').length > 0) {
+                            // add extra margin-bottom for footer, if there is also a price footer: .has-price-footer class is present
+                            $('.footer-container').css('margin-bottom', '95px');
+                        }
+                    });
+
+                    this.loaded = true;
                 });
             },
-            orderByTitle () {
-                this.services.reverse();
+            orderByCategory () {
+                this.categories.data.reverse();
             },
             addPrice (id, price) {
                 // get the qty input selected
@@ -90,53 +108,64 @@
                 }
             },
             setPriceAddedProp (id, val) {
-                for (var i = 0; i < this.services.length; i++) {
-                    if (this.services[i].id === id) {
-                        this.services[i].price_added = val;
+                for (var i = 0; i < this.categories.data.length; i++) {
+                    for (var j = 0; j < this.categories.data[i].services.length; j++) {
+                        if (this.categories.data[i].services[j].id === id) {
+                            this.categories.data[i].services[j].price_added = val;
+                        }
                     }
                 }
             },
             getPriceAddedProp (id) {
-                for (var i = 0; i < this.services.length; i++) {
-                    if (this.services[i].id === id) {
-                        return this.services[i].price_added;
+                for (var i = 0; i < this.categories.data.length; i++) {
+                    for (var j = 0; j < this.categories.data[i].services.length; j++) {
+                        if (this.categories.data[i].services[j].id === id) {
+                            return this.categories.data[i].services[j].price_added;
+                        }
                     }
                 }
             },
             getServiceQtySelected (id) {
-                for (var i = 0; i < this.services.length; i++) {
-                    if (this.services[i].id === id) {
-                        return this.services[i].qty_selected;
+                for (var i = 0; i < this.categories.data.length; i++) {
+                    for (var j = 0; j < this.categories.data[i].services.length; j++) {
+                        if (this.categories.data[i].services[j].id === id) {
+                            return this.categories.data[i].services[j].qty_selected;
+                        }
                     }
                 }
             },
             setServiceQtyAdded (id, qty) {
-                for (var i = 0; i < this.services.length; i++) {
-                    if (this.services[i].id === id) {
-                       this.services[i].qty_added = qty;
+                for (var i = 0; i < this.categories.data.length; i++) {
+                    for (var j = 0; j < this.categories.data[i].services.length; j++) {
+                        if (this.categories.data[i].services[j].id === id) {
+                            this.categories.data[i].services[j].qty_added = qty;
+                        }
                     }
                 }
             },
             getServiceQtyAdded (id) {
-                for (var i = 0; i < this.services.length; i++) {
-                    if (this.services[i].id === id) {
-                       return this.services[i].qty_added;
+                for (var i = 0; i < this.categories.data.length; i++) {
+                    for (var j = 0; j < this.categories.data[i].services.length; j++) {
+                        if (this.categories.data[i].services[j].id === id) {
+                            return this.categories.data[i].services[j].qty_added;
+                        }
                     }
                 }
             },
             clear () {
                 this.total = 0;
-                for (var i = 0; i < this.services.length; i++) {
-                    this.services[i].qty_added = 0;
-                    if (this.services[i].priceAdded === true) {
-                        this.services[i].price_added = false;
+                for (var i = 0; i < this.categories.data.length; i++) {
+                    for (var j = 0; j < this.categories.data[i].services.length; j++) {
+                        this.categories.data[i].services[j].qty_added = 0;
+                        if (this.categories.data[i].services[j].priceAdded === true) {
+                            this.categories.data[i].services[j].price_added = false;
+                        }
                     }
                 }
             }
         },
         mounted() {
             this.fetchServices();
-            this.loaded = true;
             this.total = 0;
         }
     }

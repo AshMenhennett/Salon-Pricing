@@ -26,6 +26,7 @@ class ServiceCreateFormRequest extends FormRequest
         return [
             'title' => 'required|max:255',
             'price' => 'required|dollars|allowed_dollar_amount',
+            'category' => 'required|max:255',
         ];
     }
 }

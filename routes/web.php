@@ -28,32 +28,51 @@ Route::get('/privacy-policy', function () {
     return View::make('legal.privacy');
 })->name('legal.privacy');
 
+// complete Product and All Pricing Components
+//
+// clearn up css
+// add inline css to custom
+// solidifydesign, make similar
+
 Route::group(['middleware' => ['auth']], function () {
-
-    Route::group(['prefix' => 'products'], function () {
-        Route::get('/', 'ProductsController@index')->name('products.index');
-        Route::get('/fetch', 'ProductsController@fetchProducts')->name('products.fetch');
-
-        Route::get('/create', 'ProductsController@create')->name('products.create.index');
-        Route::post('/create', 'ProductsController@submit')->name('products.create.submit');
-
-        Route::get('/product/{product}/edit', 'ProductsController@edit')->name('products.product.edit.index');
-        Route::post('/product/{product}/edit', 'ProductsController@update')->name('products.product.edit.update');
-
-        Route::delete('/product/{product}', 'ProductsController@destroy')->name('products.product.destroy');
-    });
 
     Route::group(['prefix' => 'services'], function () {
         Route::get('/', 'ServicesController@index')->name('services.index');
+
+        // returns all services, under their respective category, using Fractal
         Route::get('/fetch', 'ServicesController@fetchServices')->name('services.fetch');
+
+        // returns all available categories for select options when creating and editing a service, not to be confused with services.fetch
+        Route::get('/fetch/categories', 'ServicesController@fetchServiceCategories')->name('services.fetch.categories');
 
         Route::get('/create', 'ServicesController@create')->name('services.create.index');
         Route::post('/create', 'ServicesController@submit')->name('services.create.submit');
 
-        Route::get('/service/{service}/edit', 'ServicesController@edit')->name('services.service.edit.index');
-        Route::post('/service/{service}/edit', 'ServicesController@update')->name('services.service.edit.update');
+        Route::get('/{service}/edit', 'ServicesController@edit')->name('services.service.edit.index');
+        Route::post('/{service}/edit', 'ServicesController@update')->name('services.service.edit.update');
 
-        Route::delete('/service/{service}', 'ServicesController@destroy')->name('services.service.destroy');
+        Route::delete('/{service}', 'ServicesController@destroy')->name('services.service.destroy');
+    });
+
+    Route::group(['prefix' => 'products'], function () {
+        Route::get('/', 'ProductsController@index')->name('products.index');
+
+        // returns all products, under their respective brand and category, using Fractal
+        Route::get('/fetch', 'ProductsController@fetchProducts')->name('products.fetch');
+
+        // returns all available categories for select options when creating and editing a product, not to be confused with products.fetch
+        Route::get('/fetch/categories', 'ProductsController@fetchProductCategories')->name('products.fetch.categories');
+
+        // returns all available brands for select options when creating and editing a product,
+        Route::get('/fetch/brands', 'ProductsController@fetchProductBrands')->name('products.fetch.brands');
+
+        Route::get('/create', 'ProductsController@create')->name('products.create.index');
+        Route::post('/create', 'ProductsController@submit')->name('products.create.submit');
+
+        Route::get('/{product}/edit', 'ProductsController@edit')->name('products.product.edit.index');
+        Route::post('/{product}/edit', 'ProductsController@update')->name('products.product.edit.update');
+
+        Route::delete('/{product}', 'ProductsController@destroy')->name('products.product.destroy');
     });
 
     Route::group(['prefix' => 'prices'], function () {

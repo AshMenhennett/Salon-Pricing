@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use Fractal;
 use App\Service;
 use Illuminate\Http\Request;
 use App\Http\Requests\ServiceUpdateFormRequest;
@@ -12,7 +14,20 @@ class ServicesController extends Controller
 
     public function fetchServices (Request $request)
     {
-        return Service::where('user_id', $request->user()->id)->orderBy('title', 'asc')->get();
+        return Fractal::collection($this->fetchServiceCategories($request))->transformWith(
+            function ($category) {
+                return [
+                    // building custom data structure, including categories of services and the services them selves. Utlized in ServicesTableComponent.vue.
+                    'cat_name' => $category->category,
+                    'services' => Service::where('category', $category->category)->where('user_id', \Auth::user()->id)->orderBy('title', 'desc')->get()
+                ];
+            }
+        )->toArray();
+    }
+
+    public function fetchServiceCategories (Request $request) {
+        // get all distinct categories, that belong to the user's service and where the value is not an empty string
+        return DB::table('services')->select('category')->where('category', '!=', '')->where('user_id', $request->user()->id)->orderBy('category', 'asc')->distinct()->get();
     }
 
     public function index ()
@@ -33,6 +48,7 @@ class ServicesController extends Controller
         $service->user_id = $user->id;
         $service->title = $request->title;
         $service->price = $request->price;
+        $service->category = $request->category;
         $service->save();
 
         return redirect()->route('services.index');
@@ -54,6 +70,7 @@ class ServicesController extends Controller
         if ($request->user()->can('update', $service)) {
             $service->title = $request->title;
             $service->price = $request->price;
+            $service->category = $request->category;
             $service->save();
         }
 

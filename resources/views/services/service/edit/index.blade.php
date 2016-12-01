@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -39,7 +39,18 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-4">
+                                <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
+                                    <label for="category" class="label-control">Category</label>
+                                    <service-category-select selected-category="{{ $service->category }}"></service-category-select>
+                                    @if ($errors->has('category'))
+                                        <div class="help-block danger">
+                                            {{ $errors->first('category') }}
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 {{ csrf_field() }}
                                 <button type="submit" class="btn btn-default btn-block btn-form-lower pull-right">Update Service</button>
                             </div>
