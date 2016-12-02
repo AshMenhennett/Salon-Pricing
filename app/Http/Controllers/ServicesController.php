@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use Auth;
 use Fractal;
 use App\Service;
 use Illuminate\Http\Request;
@@ -14,19 +15,19 @@ class ServicesController extends Controller
 
     public function fetchServices (Request $request)
     {
-        return Fractal::collection($this->fetchServiceCategories($request))->transformWith(
-            function ($category) {
+        return Fractal::collection($this->fetchServicesWithDistinctCategory($request))->transformWith(
+            function ($product) {
                 return [
-                    // building custom data structure, including categories of services and the services them selves. Utlized in ServicesTableComponent.vue.
-                    'cat_name' => $category->category,
-                    'services' => Service::where('category', $category->category)->where('user_id', \Auth::user()->id)->orderBy('title', 'desc')->get()
+                    // building data structure, including categories of services and the services them selves. Utlized in ServicesTableComponent.vue.
+                    'category' => $product->category,
+                    'services' => Service::where('category', $product->category)->where('user_id', Auth::user()->id)->orderBy('title', 'desc')->get()
                 ];
             }
         )->toArray();
     }
 
-    public function fetchServiceCategories (Request $request) {
-        // get all distinct categories, that belong to the user's service and where the value is not an empty string
+    public function fetchServicesWithDistinctCategory (Request $request) {
+        // get all services with a distinct category
         return DB::table('services')->select('category')->where('category', '!=', '')->where('user_id', $request->user()->id)->orderBy('category', 'asc')->distinct()->get();
     }
 

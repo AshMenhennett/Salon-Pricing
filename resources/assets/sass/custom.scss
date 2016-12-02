@@ -11,8 +11,41 @@ $nav-border-color: #d3e0e9;
     }
 }
 
+.btn.btn-discount {
+    display: block;
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+.service-product-seperator {
+    height: 25px;
+    margin: 50px 0;
+    background: darken($nav-border-color, 25%);
+
+}
+
+.brand-name {
+    text-transform: capitalize; text-decoration: underline;
+}
+.cat-name {
+    text-transform: capitalize;
+}
+
+.total-price {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    font-size: 1.2em;
+}
+
 .btn.btn-top {
     margin-bottom: 15px;
+}
+
+.alert-total-price-err {
+    postition: fixed;
+    z-index: 9999;
+    width: 100%;
+    top: 0;
+    left: 0;
 }
 
 

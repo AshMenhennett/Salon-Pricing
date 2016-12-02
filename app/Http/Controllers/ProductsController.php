@@ -14,41 +14,40 @@ class ProductsController extends Controller
 {
     public function fetchProducts (Request $request)
     {
-        return Fractal::collection($this->fetchProductBrands($request))->transformWith(
-            function ($brand) {
-                $categories = $this->fetchProductCategoriesForBrand($brand);
+        return Fractal::collection($this->fetchProductsWithDistinctBrand($request))->transformWith(
+            function ($product) {
+                $categories = $this->fetchProductsWithDistinctCategoryGivenBrand($product->brand);
                 foreach ($categories as $category) {
                     // adding dynamic props to each $category
-                    // cat_name prop is sugar syntax for category prop of $category, for readability in vue component
-                    $category->cat_name = $category->category;
-                    $category->products = $this->fetchProductsForCategoryAndBrand($category, $brand);
+                    $category->products = $this->fetchProductsForCategoryAndBrand($category->category, $product->brand);
                 }
                 return [
-                    'brand_name' => $brand->brand,
+                    // building data structure, including brands of products, associated categories and the products them selves. Utlized in ProductsTableComponent.vue.
+                    'brand_name' => $product->brand,
                     'categories' => $categories
                 ];
             }
         )->toArray();
     }
 
-    public function fetchProductBrands (Request $request) {
-        // get all distinct brands, that belong to the user's products and where the value is not an empty string
+    public function fetchProductsWithDistinctBrand (Request $request) {
+        // get all products with a distinct brand, that belong to the user
         return DB::table('products')->select('brand')->where('brand', '!=', '')->where('user_id', $request->user()->id)->orderBy('brand', 'asc')->distinct()->get();
     }
 
-    public function fetchProductCategories (Request $request) {
-        // get all distinct categories, that belong to the user's products, where the value is not an empty string
+    public function fetchProductsWithDistinctCategory(Request $request) {
+        // get all products with a distinct category, that belong to the user
         return DB::table('products')->select('category')->where('category', '!=', '')->where('user_id', $request->user()->id)->orderBy('category', 'asc')->distinct()->get();
     }
 
-    protected function fetchProductCategoriesForBrand ($brand) {
-        // get all distinct categories, that belong to the user's products, where the value is not an empty string and that are associated with a particular brand
-        return DB::table('products')->select('category')->where('category', '!=', '')->where('brand', $brand->brand)->where('user_id', Auth::user()->id)->orderBy('category', 'asc')->distinct()->get();
+    protected function fetchProductsWithDistinctCategoryGivenBrand ($brand) {
+        // get all products with a distinct category, given a brand
+        return DB::table('products')->select('category')->where('category', '!=', '')->where('brand', $brand)->where('user_id', Auth::user()->id)->orderBy('category', 'asc')->distinct()->get();
     }
 
     protected function fetchProductsForCategoryAndBrand ($category, $brand) {
-        // get all distinct categories, that belong to the user's products, where the value is not an empty string and that are associated with a particular brand
-        return Product::where('category', $category->category)->where('brand', $brand->brand)->where('user_id', Auth::user()->id)->orderby('name', 'asc')->get();
+        // get all products associated with a specific category and brane
+        return Product::where('category', $category)->where('brand', $brand)->where('user_id', Auth::user()->id)->orderby('name', 'asc')->get();
     }
 
     public function index ()
@@ -64,6 +63,7 @@ class ProductsController extends Controller
     public function submit (ProductCreateFormRequest $request)
     {
         $user = $request->user();
+
         $product = new Product();
         $product->user_id = $user->id;
         $product->brand = $request->brand;

@@ -5,10 +5,10 @@
         <br />
         <br />
         <div v-if="brands.data.length">
-            <div v-for="brand in brands.data" class="parent-view-group-container">
-                <h4 style="text-transform: capitalize; text-decoration: underline;">{{ brand.brand_name }}</h4>
-                <div v-for="category in brand.categories" class="well">
-                    <h4 style="text-transform: capitalize;">{{ category.cat_name }}</h4>
+            <div v-for="(brand, brandIndex) in brands.data" class="parent-view-group-container">
+                <h4 class="brand-name">{{ brand.brand_name }}</h4>
+                <div v-for="(category, categoryIndex) in brand.categories" class="well">
+                    <h4 class="cat-name">{{ category.category }}</h4>
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -16,8 +16,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                             <tr v-for="product in category.products">
-                                <td>{{ product.name }}</td>  <td>${{ product.price }}</td> <td><a href="#" @click.prevent="destroy(product.id)" class="pull-right text-danger manipulate-link"><span class="glyphicon glyphicon-remove"></span></a> &nbsp; <a v-bind:href="'/products/' + product.id + '/edit'" class="pull-right text-info manipulate-link"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                             <tr v-for="(product, productIndex) in category.products">
+                                <td>{{ product.name }}</td>  <td>${{ product.price }}</td> <td><a href="#" @click.prevent="destroy(brandIndex, categoryIndex, productIndex, product.id)" class="pull-right text-danger manipulate-link"><span class="glyphicon glyphicon-remove"></span></a> &nbsp; <a v-bind:href="'/products/' + product.id + '/edit'" class="pull-right text-info manipulate-link"><span class="glyphicon glyphicon-pencil"></span></a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -42,7 +42,7 @@
             fetchProducts () {
                 return this.$http.get('/products/fetch').then((response) => {
                     // getting all products, listed under their category, listed under their brand.
-                    // data structure: {"data": [{brand_name: string, categories: [{category: string, cat_name: string, products: [{prod1, ..., ...}]}]}]}
+                    // data structure: {"data": [{brand_name: string, categories: [{category: string, products: [{prod1, ..., ...}]}]}]}
                     this.brands = response.body;
                     this.loaded = true;
                 });
@@ -50,23 +50,13 @@
             orderByBrand () {
                 this.brands.data.reverse();
             },
-            destroy (id) {
-                for (var i = 0; i < this.brands.data.length; i++) {
-                    for (var j = 0; j < this.brands.data[i].categories.length; j++) {
-                        for (var k = 0; k < this.brands.data[i].categories[j].products.length; k++) {
-                            // loop through products[] and remove the product prop that destroy() was called from
-                            (this.brands.data[i].categories[j].products[k].id === id) ? this.brands.data[i].categories[j].products.splice(j, 1) : false;
-                        }
-                        if (this.brands.data.length != 0 && this.brands.data[i].categories[j].products.length === 0) {
-                            // remove empty categories
-                            this.brands.data[i].categories.splice(j, 1);
-                        }
-                    }
-                    if (this.brands.data.length != 0 && this.brands.data[i].categories.length === 0) {
-                        // remove empty brands
-                        this.brands.data.splice(i, 1);
-                    }
-                }
+            destroy (brandIndex, categoryIndex, productIndex, id) {
+                // remove the product from the array
+                this.brands.data[brandIndex].categories[categoryIndex].products.splice(productIndex, 1);
+                // remove empty categories and brands
+                (this.brands.data.length != 0 && this.brands.data[brandIndex].categories[categoryIndex].products.length === 0) ? this.brands.data[brandIndex].categories.splice(categoryIndex, 1) : false;
+                (this.brands.data.length != 0 && this.brands.data[brandIndex].categories.length === 0) ? this.brands.data.splice(brandIndex, 1) : false;
+                // send delete request to server
                 return this.$http.delete('/products/' + id);
             }
         },

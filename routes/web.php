@@ -29,10 +29,14 @@ Route::get('/privacy-policy', function () {
 })->name('legal.privacy');
 
 // complete Product and All Pricing Components
+// check select components
 //
 // clearn up css
 // add inline css to custom
 // solidifydesign, make similar
+// test
+// add to readme
+// add to intro home text
 
 Route::group(['middleware' => ['auth']], function () {
 
@@ -43,7 +47,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/fetch', 'ServicesController@fetchServices')->name('services.fetch');
 
         // returns all available categories for select options when creating and editing a service, not to be confused with services.fetch
-        Route::get('/fetch/categories', 'ServicesController@fetchServiceCategories')->name('services.fetch.categories');
+        Route::get('/fetch/categories', 'ServicesController@fetchServicesWithDistinctCategory')->name('services.fetch.categories');
 
         Route::get('/create', 'ServicesController@create')->name('services.create.index');
         Route::post('/create', 'ServicesController@submit')->name('services.create.submit');
@@ -61,10 +65,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/fetch', 'ProductsController@fetchProducts')->name('products.fetch');
 
         // returns all available categories for select options when creating and editing a product, not to be confused with products.fetch
-        Route::get('/fetch/categories', 'ProductsController@fetchProductCategories')->name('products.fetch.categories');
+        Route::get('/fetch/categories', 'ProductsController@fetchProductsWithDistinctCategory')->name('products.fetch.categories');
 
         // returns all available brands for select options when creating and editing a product,
-        Route::get('/fetch/brands', 'ProductsController@fetchProductBrands')->name('products.fetch.brands');
+        Route::get('/fetch/brands', 'ProductsController@fetchProductsWithDistinctBrand')->name('products.fetch.brands');
 
         Route::get('/create', 'ProductsController@create')->name('products.create.index');
         Route::post('/create', 'ProductsController@submit')->name('products.create.submit');
@@ -76,8 +80,8 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['prefix' => 'prices'], function () {
-        Route::get('/products', 'PricingController@products')->name('prices.products');
         Route::get('/services', 'PricingController@services')->name('prices.services');
+        Route::get('/products', 'PricingController@products')->name('prices.products');
         Route::get('/all', 'PricingController@all')->name('prices.all');
     });
 
