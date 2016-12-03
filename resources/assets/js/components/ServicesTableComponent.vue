@@ -1,9 +1,11 @@
 <template>
     <div class="panel-body" v-if="loaded">
         <a href="/services/create" class="btn btn-default btn-top btn-block">Add a Service</a>
-        <button v-if="categories.data.length" @click.prevent="orderByCategory()" class="btn btn-default">Order Categories <span class="glyphicon glyphicon-sort"></span></button>
-        <br />
-        <br />
+        <div v-if="categories.data.length">
+            <button @click.prevent="orderByCategory()" class="btn btn-default">Order Categories <span class="glyphicon glyphicon-sort"></span></button>
+            <br />
+            <br />
+        </div>
         <div v-if="categories.data.length">
             <div v-for="(category, categoryIndex) in categories.data" class="parent-view-group-container">
                 <h4 class="cat-name">{{ category.category }}</h4>
