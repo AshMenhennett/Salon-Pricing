@@ -1,7 +1,7 @@
 <template>
     <div class="panel-body" v-if="loaded">
         <a href="/services/create" class="btn btn-default btn-top btn-block">Add a Service</a>
-        <button @click.prevent="orderByCategory()" class="btn btn-default">Order Categories <span class="glyphicon glyphicon-sort"></span></button>
+        <button v-if="categories.data.length" @click.prevent="orderByCategory()" class="btn btn-default">Order Categories <span class="glyphicon glyphicon-sort"></span></button>
         <br />
         <br />
         <div v-if="categories.data.length">

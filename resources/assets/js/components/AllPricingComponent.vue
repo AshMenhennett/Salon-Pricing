@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="panel-body has-large-price-footer">
-            <a href="#products" class="pull-right">Jump to Products &dArr;</a>
+            <a href="#products" v-if="productBrands.data.length" class="pull-right">Jump to Products &dArr;</a>
             <br />
             <h4 id="services">Services</h4>
             <div v-if="serviceCategories.data.length">
@@ -64,7 +64,7 @@
 
             <hr class="service-product-seperator">
 
-            <a href="#services" class="pull-right">Jump to Services &uArr;</a>
+            <a href="#services" v-if="serviceCategories.data.length" class="pull-right">Jump to Services &uArr;</a>
             <br />
             <h4 id="products">Products</h4>
             <div v-if="productBrands.data.length">

@@ -1,7 +1,7 @@
 <template>
     <div class="panel-body" v-if="loaded">
         <a href="/products/create" class="btn btn-default btn-top btn-block">Add a Product</a>
-        <button @click.prevent="orderByBrand()" class="btn btn-default">Order Brands <span class="glyphicon glyphicon-sort"></span></button>
+        <button v-if="brands.data.length" @click.prevent="orderByBrand()" class="btn btn-default">Order Brands <span class="glyphicon glyphicon-sort"></span></button>
         <br />
         <br />
         <div v-if="brands.data.length">
