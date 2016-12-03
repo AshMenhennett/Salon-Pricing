@@ -68,6 +68,6 @@ Further steps:
 ##Disclaimer
 - Prices, within the database and Vue components are of type ```float```, feel free to enhance the trailing points' accuracy by changing the type to ```double```. However, I have chosen to stick with ```float``` type, as there is no real advantage, considering the limitations in rounding up floating point numbers to the nearest floating point value (, given the number of trailing decimals to keep intact) in JavaScript.
 - The ```price``` field in the ```products``` and ```services``` tables are restricted to values no greater than ```99999.99```(7 digits, 2 of which are trailing decimals).
-- It is possible for total prices, shown in footer at ```/prices/all```, ```/prices/services``` and ```/prices/products``` to be off by, at most, 1/2 cent. This is due to prices not being rounded up before being displayed. Instead, total prices are 'trimmed' down with ```n.toFixed(2)```.
+- It is possible for total prices, shown in footer at ```/prices/all```, ```/prices/services``` and ```/prices/products``` to be off by, at most, 1/2 cent. This is due to prices not being rounded up before being displayed. Instead, total prices are 'trimmed' down with ```n.toFixed(2)```. I have also removed any possible ```-``` preceeding the total price. A preceeding ```-``` may appear, if all items are removed from the total. The resulting code is ```n.toFixed(2).replace('-', '')```.
 
 *Please do not use the associated legal views, if they still exist in this repository (terms.blade.php and privacy.blade.php). Use at your own peril.*
