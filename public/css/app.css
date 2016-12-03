@@ -12,18 +12,6 @@
   background-color: #fefefe;
 }
 
-.btn.btn-discount {
-  display: block;
-  max-width: 350px;
-  margin: 0 auto;
-}
-
-.service-product-seperator {
-  height: 25px;
-  margin: 50px 0;
-  background: #7ea4bf;
-}
-
 .brand-name {
   text-transform: capitalize;
   text-decoration: underline;
@@ -33,25 +21,18 @@
   text-transform: capitalize;
 }
 
-.total-price {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-  font-size: 1.2em;
+.btn.btn-discount {
+  display: block;
+  max-width: 50%;
+  margin: 0 auto 20px auto !important;
 }
 
 .btn.btn-top {
   margin-bottom: 15px;
 }
 
-.alert-total-price-err {
-  postition: fixed;
-  z-index: 9999;
-  width: 100%;
-  top: 0;
-  left: 0;
-}
-
 @media (min-width: 992px) {
-  .btn.btn-form-lower {
+  .btn-form-lower {
     margin-top: 27px;
   }
 }
@@ -60,6 +41,20 @@
   .custom-cat-btn {
     margin-bottom: 12px !important;
   }
+}
+
+.service-product-seperator {
+  height: 25px;
+  margin: 50px 0;
+  background: #7ea4bf;
+}
+
+.subtotal-price, .total-price {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+}
+
+.total-price {
+  font-size: 1.2em;
 }
 
 .manipulate-link {

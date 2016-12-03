@@ -28,16 +28,6 @@ Route::get('/privacy-policy', function () {
     return View::make('legal.privacy');
 })->name('legal.privacy');
 
-// complete Product and All Pricing Components
-// check select components
-//
-// clearn up css
-// add inline css to custom
-// solidifydesign, make similar
-// test
-// add to readme
-// add to intro home text
-
 Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'services'], function () {

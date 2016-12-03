@@ -1,25 +1,24 @@
 <template>
     <div>
-        <div>
-            <div class="modal" tabindex="-1" role="dialog" id="price-error-modal">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Discount issue</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p><strong>Whoops!</strong> You have added or removed an item since applying the 10% discount.</p>
-                            <p>This has caused the total price to be incorrect.</p>
-                            <p>Please remove and re-apply the discount to clear this up :) ;</p>
-                        </div>
-                        <div class="modal-footer">
-                            <a href="#" @click.prevent="discount(discountFactor)" v-bind:data-dismiss="(discounted) ? 'modal' : ''" class="btn btn-lg btn-discount" v-bind:class="(!discounted) ? ' btn-success' : ' btn-danger'"><span class="glyphicon glyphicon-flash"></span>{{ (!discounted) ? 'Discount by ' + discountFactor + '%' : 'Remove discount' }}</a>
-                        </div>
+        <div class="modal" tabindex="-1" role="dialog" id="price-error-modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Discount issue</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Whoops!</strong> You have added or removed an item since applying the {{ discountFactor }}% discount.</p>
+                        <p>This has caused the total price to be incorrect.</p>
+                        <p>Please remove and re-apply the discount to clear this up :) ;</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" @click.prevent="discount(discountFactor)" v-bind:data-dismiss="(discounted) ? 'modal' : ''" class="btn btn-lg btn-discount" v-bind:class="(!discounted) ? ' btn-success' : ' btn-danger'"><span class="glyphicon glyphicon-flash"></span>{{ (!discounted) ? 'Discount by ' + discountFactor + '%' : 'Remove discount' }}</a>
+                        <button v-if="!discounted" type="button" class="btn btn-default btn-lg btn-discount" data-dismiss="modal">Don't worry about the discount</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="panel-body"  v-if="loaded">
+        <div class="panel-body has-price-footer">
             <div v-if="brands.data.length">
                 <a href="#" @click.prevent="orderByBrand()" class="btn btn-default btn-top pull-left">Order <span class="glyphicon glyphicon-sort"></span></a>
                 <br />
@@ -42,7 +41,7 @@
                 </div>
                 <a href="#" @click.prevent="discount(discountFactor)" class="btn btn-lg btn-discount" v-bind:class="(!discounted) ? ' btn-success' : ' btn-danger'"><span class="glyphicon glyphicon-flash"></span>{{ (!discounted) ? 'Discount by ' + discountFactor + '%' : 'Remove discount' }}</a>
             </div>
-             <div v-else>
+             <div  v-if="!brands.data.length && loaded">
                 <p>You currently don't have any products listed.</p>
             </div>
 
@@ -159,7 +158,7 @@
 
                     this.total -= this.savings;
                 } else {
-                    // removing discount increase total price ;)
+                    // removing discount increases total price ;)
                     this.total += this.savings;
                 }
 
@@ -189,9 +188,3 @@
         }
     }
 </script>
-
-<style>
-    .footer-container {
-        margin-bottom: 95px;
-    }
-</style>

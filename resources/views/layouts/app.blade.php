@@ -61,6 +61,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ route('home') }}">Home</a></li>
                                     <li><a href="{{ route('services.index') }}">Add &amp; View Services</a></li>
                                     <li><a href="{{ route('products.index') }}">Add &amp; View Products</a></li>
                                     <li>

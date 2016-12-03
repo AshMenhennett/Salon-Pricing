@@ -17,9 +17,8 @@ class CreateServicesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('title', 255);
-            $table->text('description')->nullable();
+            $table->string('category');
             $table->float('price', 7, 2);
-            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -26,3 +26,17 @@ Vue.component('product-brand-select', require('./components/ProductBrandSelectCo
 const app = new Vue({
     el: '#app'
 });
+
+// legal links aren't, by default visible on pricing pages, due to .total-price-footer 'hiding' them.
+// we need to add margin-bottom prop to .footer-container to allow for users to see the legal links.
+// Option 1: Adding css in specific vue components, where needed. Problem: The css gets added to all pages.
+// Option 2: Adding css via jQuery, when doscument is ready. Problem: The element in question (.footer-container) isn't available until the component has finished the requests.
+// Option 3: Using setTimeout(), and invoking jQuery methods after the component has 'probably' finished the requests. Problem: If the component takes longer that we think, the css won't be added. If we leave the timeout to long, the legal links wont be visible on initial viewing of the page
+// Option 4: Removing loaded prop from compnonents, this way, the .has-large-price-footer and .has-price-footer elements, on pricing pages will be visible immediately, not only after requets are made (v-if="loaded")
+$(document).ready(function () {
+    if ($('.has-large-price-footer').length > 0) {
+        $('.footer-container').css('margin-bottom', '166px');
+    } else if ($('.has-price-footer').length > 0) {
+        $('.footer-container').css('margin-bottom', '95px');
+    }
+});
