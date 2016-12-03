@@ -36,6 +36,7 @@ Adding services 'backend'
 
 Adding products 'backend'
 ![Adding Products](https://cloud.githubusercontent.com/assets/9494635/20857458/51647ede-b97d-11e6-88f5-998012b6b912.PNG)
+
 ###Backend Listings
 Product listings
 ![Product Listings](https://cloud.githubusercontent.com/assets/9494635/20857448/f3fc4bfa-b97c-11e6-90bd-a141a8df4cbe.PNG)
@@ -45,13 +46,14 @@ Service listings
 
 ###Pricing lists
 Pricing list (top)
-[All Prices- top](https://cloud.githubusercontent.com/assets/9494635/20857450/faf54d4e-b97c-11e6-9fd1-3069b4685238.PNG)
+![All Prices- top](https://cloud.githubusercontent.com/assets/9494635/20857450/faf54d4e-b97c-11e6-9fd1-3069b4685238.PNG)
 
 Pricing list (bottom)
 ![All Prices- bottoml](https://cloud.githubusercontent.com/assets/9494635/20857451/fd68f99a-b97c-11e6-978a-ac72544d0fd1.PNG)
+
 ## Installation & Configuration
 If you would like to install this project, treat it as you would any other Laravel application, keeping in mind some additional crucial environment variables:
-- ```APPL``` : the url of the application. This variable is used to link to the application.
+- ```APP_URL``` : the url of the application. This variable is used to link to the application.
 - ```MAIL_FROM_EMAIL``` and ```MAIL_FROM_NAME```: the 'from' email address and name. This is used for sending out emails.
 - ```COPY_NAME``` and ```COPY_URL```: the text and link in footer, used for dev details.
 
