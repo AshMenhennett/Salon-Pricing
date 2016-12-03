@@ -29,27 +29,29 @@ The ```dollars``` validation rule uses the following pattern: ```/^\d{0,5}(\.\d{
 
 The ```allowed_dollar_amount```  uses the following pattern: ```/^\d{0,5}(\.\d{2})?$/```, to verify that a value is has a maximum of 5 whole numbers, preceeding the ```.``` and two decimal places.
 
-## Screenshot
+## Screenshots
 ###Adding Items
 Adding services 'backend'
 ![Adding Services](https://cloud.githubusercontent.com/assets/9494635/20857457/4d1edb12-b97d-11e6-94c3-de4fb7fc39d3.PNG)
+
 Adding products 'backend'
 ![Adding Products](https://cloud.githubusercontent.com/assets/9494635/20857458/51647ede-b97d-11e6-88f5-998012b6b912.PNG)
-
 ###Backend Listings
 Product listings
 ![Product Listings](https://cloud.githubusercontent.com/assets/9494635/20857448/f3fc4bfa-b97c-11e6-90bd-a141a8df4cbe.PNG)
+
 Service listings
 ![Service Listings](https://cloud.githubusercontent.com/assets/9494635/20857449/f7a92a20-b97c-11e6-88f9-2f378780ff43.PNG)
 
-####Pricing list
-Pricing list
-![All Prices- top](https://cloud.githubusercontent.com/assets/9494635/20857450/faf54d4e-b97c-11e6-9fd1-3069b4685238.PNG)
-![All Prices- bottoml](https://cloud.githubusercontent.com/assets/9494635/20857451/fd68f99a-b97c-11e6-978a-ac72544d0fd1.PNG)
+###Pricing lists
+Pricing list (top)
+[All Prices- top](https://cloud.githubusercontent.com/assets/9494635/20857450/faf54d4e-b97c-11e6-9fd1-3069b4685238.PNG)
 
+Pricing list (bottom)
+![All Prices- bottoml](https://cloud.githubusercontent.com/assets/9494635/20857451/fd68f99a-b97c-11e6-978a-ac72544d0fd1.PNG)
 ## Installation & Configuration
 If you would like to install this project, treat it as you would any other Laravel application, keeping in mind some additional crucial environment variables:
-- ```APP_URL``` : the url of the application. This variable is used to link to the application.
+- ```APPL``` : the url of the application. This variable is used to link to the application.
 - ```MAIL_FROM_EMAIL``` and ```MAIL_FROM_NAME```: the 'from' email address and name. This is used for sending out emails.
 - ```COPY_NAME``` and ```COPY_URL```: the text and link in footer, used for dev details.
 
@@ -62,8 +64,8 @@ Further steps:
 - [Fractal](https://github.com/spatie/laravel-fractal)
 
 ##Disclaimer
-- Prices, within the database and Vue components are ```float```s, feel free to enhance trailing points' accuracy by changing the type to a ```double```. However, I have chosen to stick with ```float``` type, as there is no real advantage, considering the limitations in rounding up floating point numbers in JavaScript as expected.
-- Prices are also saved in the database, at a maximum input of 99999.99, as per the specifications of the project, this was all that was required.
-- It is possible for total prices, shown in footer at ```/prices/all```, ```/prices/services``` and ```/prices/products``` to be off by, at most, 1 cent. I.e 29.987 will be presented as 29.98. Keep this in mind. This is basically due to the limitations in JavaScript towards rounding up floating point numbers as expected.
+- Prices, within the database and Vue components are of type ```float```, feel free to enhance the trailing points' accuracy by changing the type to ```double```. However, I have chosen to stick with ```float``` type, as there is no real advantage, considering the limitations in rounding up floating point numbers to the nearest floating point value (, given the number of trailing decimals to keep intact) in JavaScript.
+- The ```price``` field in the ```products``` and ```services``` tables are restricted to values no greater than ```99999.99```(7 digits, 2 of which are trailing decimals).
+- It is possible for total prices, shown in footer at ```/prices/all```, ```/prices/services``` and ```/prices/products``` to be off by, at most, 1/2 cent. This is due to prices not being rounded up before being displayed. Instead, total prices are 'trimmed' down with ```n.toFixed(2)```.
 
 *Please do not use the associated legal views, if they still exist in this repository (terms.blade.php and privacy.blade.php). Use at your own peril.*
