@@ -20,7 +20,7 @@ class ServicesController extends Controller
                 return [
                     // building data structure, including categories of services and the services them selves. Utlized in ServicesTableComponent.vue.
                     'category' => $product->category,
-                    'services' => Service::where('category', $product->category)->where('user_id', Auth::user()->id)->orderBy('title', 'desc')->get()
+                    'services' => Service::where('category', $product->category)->where('user_id', Auth::user()->id)->orderBy('title', 'asc')->get()
                 ];
             }
         )->toArray();
