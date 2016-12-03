@@ -20,19 +20,21 @@ Vue has been used to create the reactive front-end components that utilize the A
 - Products and Services may be sorted by brand and category, respectively, in the 'backend' view, as well as the pricing list view.
 - Products and Services may be discounted via the UI, using predefined values as per the project specifications.
 
-*Note, the user registration controller currently restricts registration to only one user, as per the project specifications. To remove this restriction, simply remove the ```no_accounts``` validation rule in ```App\Http\Controllers\Auth\RegisterController.php#52```.*
+*Note, the user registration controller currently restricts registration to only one user, as per the project specifications. To remove this restriction, simply remove the ```no_accounts``` validation rule in the [RegisterController](App\Http\Controllers\Auth\RegisterController.php#L5).*
 
 ##Custom Validation rules
-As well as the ```no_accounts``` validation rule, used in the ```RegisterController```, two other custom validation rules, ```dollars``` and ```allowed_dollar_amount```.
-The ```dollars``` validation rule uses the following pattern: ```/^\d{0,5}(\.\d{2})?$/```, to verify that a value is in the following format: ```123.45```.
-The ```allowed_dollar_amount```  uses the following pattern: ```/^\d{0,5}(\.\d{2})?$/```, to verify that a value is has a maximum of 5 whole numbers, preceeding the ```.``` and two decimal places.
+As well as the ```no_accounts``` validation rule, used in ```RegisterController```, two other custom validation rules have been implemented, ```dollars``` and ```allowed_dollar_amount```.
+-The ```dollars``` validation rule uses the following pattern: ```/^\d{0,5}(\.\d{2})?$/```, to verify that a value is in the following format: ```123.45```.
+-The ```allowed_dollar_amount```  uses the following pattern: ```/^\d{0,5}(\.\d{2})?$/```, to verify that a value is has a maximum of 5 whole numbers, preceeding the ```.``` and two decimal places.
 
 ## Screenshot
-####Adding Items
+###Adding Items
+Adding services 'backend'
 ![Adding Services](https://cloud.githubusercontent.com/assets/9494635/20857457/4d1edb12-b97d-11e6-94c3-de4fb7fc39d3.PNG)
+Adding products 'backend'
 ![Adding Products](https://cloud.githubusercontent.com/assets/9494635/20857458/51647ede-b97d-11e6-88f5-998012b6b912.PNG)
 
-####Backend Listings
+###Backend Listings
 ![Product Listings](https://cloud.githubusercontent.com/assets/9494635/20857448/f3fc4bfa-b97c-11e6-90bd-a141a8df4cbe.PNG)
 ![Service Listings](https://cloud.githubusercontent.com/assets/9494635/20857449/f7a92a20-b97c-11e6-88f9-2f378780ff43.PNG)
 
