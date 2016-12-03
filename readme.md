@@ -24,8 +24,10 @@ Vue has been used to create the reactive front-end components that utilize the A
 
 ##Custom Validation rules
 As well as the ```no_accounts``` validation rule, used in ```RegisterController```, two other custom validation rules have been implemented, ```dollars``` and ```allowed_dollar_amount```.
--The ```dollars``` validation rule uses the following pattern: ```/^\d{0,5}(\.\d{2})?$/```, to verify that a value is in the following format: ```123.45```.
--The ```allowed_dollar_amount```  uses the following pattern: ```/^\d{0,5}(\.\d{2})?$/```, to verify that a value is has a maximum of 5 whole numbers, preceeding the ```.``` and two decimal places.
+
+The ```dollars``` validation rule uses the following pattern: ```/^\d{0,5}(\.\d{2})?$/```, to verify that a value is in the following format: ```123.45```.
+
+The ```allowed_dollar_amount```  uses the following pattern: ```/^\d{0,5}(\.\d{2})?$/```, to verify that a value is has a maximum of 5 whole numbers, preceeding the ```.``` and two decimal places.
 
 ## Screenshot
 ###Adding Items
@@ -35,10 +37,13 @@ Adding products 'backend'
 ![Adding Products](https://cloud.githubusercontent.com/assets/9494635/20857458/51647ede-b97d-11e6-88f5-998012b6b912.PNG)
 
 ###Backend Listings
+Product listings
 ![Product Listings](https://cloud.githubusercontent.com/assets/9494635/20857448/f3fc4bfa-b97c-11e6-90bd-a141a8df4cbe.PNG)
+Service listings
 ![Service Listings](https://cloud.githubusercontent.com/assets/9494635/20857449/f7a92a20-b97c-11e6-88f9-2f378780ff43.PNG)
 
 ####Pricing list
+Pricing list
 ![All Prices- top](https://cloud.githubusercontent.com/assets/9494635/20857450/faf54d4e-b97c-11e6-9fd1-3069b4685238.PNG)
 ![All Prices- bottoml](https://cloud.githubusercontent.com/assets/9494635/20857451/fd68f99a-b97c-11e6-978a-ac72544d0fd1.PNG)
 
