@@ -23,11 +23,11 @@ Vue has been used to create the reactive front-end components that utilize the A
 *Note, the user registration controller currently restricts registration to only one user, as per the project specifications. To remove this restriction, simply remove the ```no_accounts``` validation rule in the [RegisterController](App\Http\Controllers\Auth\RegisterController.php#L5).*
 
 ##Custom Validation rules
-As well as the ```no_accounts``` validation rule, used in ```RegisterController```, two other custom validation rules have been implemented, ```dollars``` and ```allowed_dollar_amount```.
+As well as the ```no_accounts``` validation rule, used in the ```RegisterController```, two other custom validation rules have been implemented, ```dollars``` and ```allowed_dollar_amount```.
 
 The ```dollars``` validation rule uses the following pattern: ```/^\d{0,5}(\.\d{2})?$/```, to verify that a value is in the following format: ```123.45```.
 
-The ```allowed_dollar_amount```  uses the following pattern: ```/^\d{0,5}(\.\d{2})?$/```, to verify that a value is has a maximum of 5 whole numbers, preceeding the ```.``` and two decimal places.
+The ```allowed_dollar_amount```  uses the following pattern: ```/^\d{0,5}(\.\d{2})?$/```, to verify that a value has a maximum of 5 whole numbers, preceeding the ```.``` and two decimal places.
 
 ## Screenshots
 ###Adding Items
