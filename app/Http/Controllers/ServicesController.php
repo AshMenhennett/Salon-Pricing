@@ -23,7 +23,7 @@ class ServicesController extends Controller
      */
     public function fetchServices (Request $request)
     {
-        return Fractal::collection($this->fetchProductsWithDistinctCategory($request))->transformWith(
+        return Fractal::collection($this->fetchServicesWithDistinctCategory($request))->transformWith(
             function ($product) {
                 return [
                     // building data structure, including categories of services and the services themselves.
@@ -41,7 +41,7 @@ class ServicesController extends Controller
      * @param  Illuminate\Http\Request $request
      * @return Illuminate\Support\Collection
      */
-    public function fetchProductsWithDistinctCategory (Request $request) {
+    public function fetchServicesWithDistinctCategory (Request $request) {
         return DB::table('services')->select('category')->where('category', '!=', '')->where('user_id', $request->user()->id)->orderBy('category', 'asc')->distinct()->get();
     }
 

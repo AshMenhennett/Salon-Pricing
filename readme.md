@@ -52,8 +52,8 @@ Pricing list (bottom)
 ![All Prices- bottoml](https://cloud.githubusercontent.com/assets/9494635/20857451/fd68f99a-b97c-11e6-978a-ac72544d0fd1.PNG)
 
 ##Routes
-![Routes](https://cloud.githubusercontent.com/assets/9494635/21088030/a80c8c7c-c07b-11e6-9f32-16f1c81999e4.PNG)
-Thanks to [Pretty Routes](https://github.com/garygreen/pretty-routes).
+![Routes](https://cloud.githubusercontent.com/assets/9494635/21089629/b1216afe-c089-11e6-90cc-e17efed057a4.PNG)
+Thanks to [Pretty Routes](https://github.com/garygreen/pretty-routes)
 
 ## Installation & Configuration
 If you would like to install this project, treat it as you would any other Laravel application, keeping in mind some additional crucial environment variables:

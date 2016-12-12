@@ -37,7 +37,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/fetch', 'ServicesController@fetchServices')->name('services.fetch');
 
         // returns all available categories for select options when creating and editing a service, not to be confused with services.fetch
-        Route::get('/fetch/categories', 'ServicesController@fetchProductsWithDistinctCategory')->name('services.fetch.categories');
+        Route::get('/fetch/categories', 'ServicesController@fetchServicesWithDistinctCategory')->name('services.fetch.categories');
 
         Route::get('/create', 'ServicesController@create')->name('services.create.index');
         Route::post('/create', 'ServicesController@submit')->name('services.create.submit');
