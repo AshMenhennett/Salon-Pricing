@@ -52,7 +52,7 @@ Pricing list (bottom)
 ![All Prices- bottoml](https://cloud.githubusercontent.com/assets/9494635/20857451/fd68f99a-b97c-11e6-978a-ac72544d0fd1.PNG)
 
 ##Routes
-![Routes](https://cloud.githubusercontent.com/assets/9494635/21078251/3b477af2-bfb8-11e6-8882-f7dbcceaf167.PNG)
+![Routes](https://cloud.githubusercontent.com/assets/9494635/21088030/a80c8c7c-c07b-11e6-9f32-16f1c81999e4.PNG)
 Thanks to [Pretty Routes](https://github.com/garygreen/pretty-routes).
 
 ## Installation & Configuration
@@ -68,7 +68,6 @@ Further steps:
 
 ##Packages
 - [Laravel Fractal](https://github.com/spatie/laravel-fractal)
-- [Pretty Routes](https://github.com/garygreen/pretty-routes)
 
 ##Disclaimer
 - Prices, within the database and Vue components are of type ```float```, feel free to enhance the trailing points' accuracy by changing the type to ```double```. However, I have chosen to stick with ```float``` type, as there is no real advantage, considering the limitations in rounding up floating point numbers to the nearest floating point value (, given the number of trailing decimals to keep intact) in JavaScript.

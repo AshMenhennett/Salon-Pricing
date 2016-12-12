@@ -167,7 +167,6 @@ return [
          * Package Service Providers...
          */
         Spatie\Fractal\FractalServiceProvider::class,
-        PrettyRoutes\ServiceProvider::class,
 
         /*
          * Application Service Providers...

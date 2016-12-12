@@ -33,6 +33,9 @@ const app = new Vue({
 // Option 2: Adding css via jQuery, when doscument is ready. Problem: The element in question (.footer-container) isn't available until the component has finished the requests.
 // Option 3: Using setTimeout(), and invoking jQuery methods after the component has 'probably' finished the requests. Problem: If the component takes longer that we think, the css won't be added. If we leave the timeout to long, the legal links wont be visible on initial viewing of the page
 // Option 4: Removing loaded prop from compnonents, this way, the .has-large-price-footer and .has-price-footer elements, on pricing pages will be visible immediately, not only after requets are made (v-if="loaded")
+
+// currently Vue templates with the target classes have had an enclosing element (div) added with the target class applied,
+// so when the document is ready, the class will be visible, rather than waiting on a callback from a request.
 $(document).ready(function () {
     if ($('.has-large-price-footer').length > 0) {
         $('.footer-container').css('margin-bottom', '166px');
