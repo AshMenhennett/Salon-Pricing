@@ -29,7 +29,7 @@
                             <div class="col-md-12">
                                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                     <label for="name" class="label-control">Name</label>
-                                    <input type="text" id="name" name="name" class="form-control" value="{{ $product->name }}" required>
+                                    <input type="text" id="name" name="name" class="form-control" value="{{ old('name') ? old('name') : $product->name }}" required>
                                     @if ($errors->has('name'))
                                         <div class="help-block danger">
                                             {{ $errors->first('name') }}
@@ -45,7 +45,7 @@
                                     <label for="price" class="label-control">Price</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">$</div>
-                                        <input type="text" name="price" class="form-control" id="price" value="{{ $product->price }}" required>
+                                        <input type="text" name="price" class="form-control" id="price" value="{{ number_format((old('price') ? old('price') : $product->price), 2) }}" required>
                                     </div>
                                     @if ($errors->has('price'))
                                         <div class="help-block danger">

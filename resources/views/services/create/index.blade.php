@@ -16,7 +16,7 @@
                             <div class="col-md-12">
                                 <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                                     <label for="title" class="label-control">Title</label>
-                                    <input type="text" id="title" name="title" class="form-control" placeholder="Service Title" required>
+                                    <input type="text" id="title" name="title" class="form-control" placeholder="Service Title" value="{{ old('title') ? old('title') : '' }}" required>
                                     @if ($errors->has('title'))
                                         <div class="help-block danger">
                                             {{ $errors->first('title') }}
@@ -32,13 +32,13 @@
                                     <label for="price" class="label-control">Price</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">$</div>
-                                        <input type="text" name="price" class="form-control" id="price" placeholder="Price" required>
-                                        @if ($errors->has('price'))
-                                            <div class="help-block danger">
-                                                {{ $errors->first('price') }}
-                                            </div>
-                                        @endif
+                                        <input type="text" name="price" class="form-control" id="price" placeholder="Price" value="{{ old('price') ? number_format(old('price'), 2) : '' }}" required>
                                     </div>
+                                    @if ($errors->has('price'))
+                                        <div class="help-block danger">
+                                            {{ $errors->first('price') }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-md-4">

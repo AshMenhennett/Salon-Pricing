@@ -48,7 +48,7 @@
                     <h4 class="cat-name">{{ category.category }}</h4>
                     <ul class="list-group">
                         <li class="list-group-item" v-for="service in category.services">
-                            <strong>{{ service.title }}</strong> : ${{ service.price }}
+                            <strong>{{ service.title }}</strong> : ${{ service.price.toFixed(2) }}
                             <span class="right-side-price-controls">
                                 <input type="number" v-model="service.qty_selected" min="1">
                                 <a href="#" @click.prevent="(!service.has_qty_added) ? addServicePrice(service) : subServicePrice(service)" class="btn" v-bind:class="(!service.has_qty_added) ? ' btn-success' : ' btn-danger'">{{ (!service.has_qty_added) ? 'ADD' : 'REMOVE' }}</a>
@@ -77,7 +77,7 @@
                         <h4 class="cat-name">{{ category.category }}</h4>
                         <ul class="list-group">
                             <li v-for="product in category.products" class="list-group-item">
-                                <strong>{{ product.name }}</strong> : ${{ product.price }}
+                                <strong>{{ product.name }}</strong> : ${{ product.price.toFixed(2) }}
                                 <span class="right-side-price-controls">
                                     <input type="number" v-model="product.qty_selected" min="1">
                                     <a href="#" @click.prevent="(!product.has_qty_added) ? addProductPrice(product) : subProductPrice(product)" class="btn" v-bind:class="(!product.has_qty_added) ? ' btn-success' : ' btn-danger'">{{ (!product.has_qty_added) ? 'ADD' : 'REMOVE' }}</a>
@@ -331,7 +331,7 @@
                  for (var i = 0; i < this.serviceCategories.data.length; i++) {
                     for (var j = 0; j < this.serviceCategories.data[i].services.length; j++) {
                         this.serviceCategories.data[i].services[j].qty_added = 0;
-                        if (this.serviceCategories.data[i].services[j].priceAdded === true) {
+                        if (this.serviceCategories.data[i].services[j].has_qty_added === true) {
                             this.serviceCategories.data[i].services[j].has_qty_added = false;
                         }
                     }

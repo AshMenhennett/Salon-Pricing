@@ -17,7 +17,7 @@
                     </thead>
                     <tbody>
                          <tr v-for="(service, serviceIndex) in category.services">
-                            <td>{{ service.title }}</td> <td>${{ service.price }}</td> <td><a href="#" @click.prevent="destroy(categoryIndex, serviceIndex, service.id)" class="pull-right text-danger manipulate-link"><span class="glyphicon glyphicon-remove"></span></a> &nbsp; <a v-bind:href="'/services/' + service.id + '/edit'" class="pull-right text-info manipulate-link"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                            <td>{{ service.title }}</td> <td>${{ service.price.toFixed(2) }}</td> <td><a href="#" @click.prevent="destroy(categoryIndex, serviceIndex, service.id)" class="pull-right text-danger manipulate-link"><span class="glyphicon glyphicon-remove"></span></a> &nbsp; <a v-bind:href="'/services/' + service.id + '/edit'" class="pull-right text-info manipulate-link"><span class="glyphicon glyphicon-pencil"></span></a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -41,7 +41,7 @@
             fetchServices () {
                 return this.$http.get('/services/fetch').then((response) => {
                     // getting all services, listed under their category.
-                    // data structure: {"data": [{category: string, services: [{service1, ..., ...}]}]}
+                    // data structure: [{"data": [{category: string, services: [{service1}, {...}, {...}]}, ..., ....]}]
                     this.categories = response.body;
                     this.loaded = true;
                 });

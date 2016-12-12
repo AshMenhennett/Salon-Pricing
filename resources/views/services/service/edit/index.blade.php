@@ -14,7 +14,7 @@
                             <div class="col-md-12">
                                 <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                                     <label for="title" class="label-control">Title</label>
-                                    <input type="text" id="title" name="title" class="form-control" value="{{ $service->title }}" required>
+                                    <input type="text" id="title" name="title" class="form-control" value="{{ old('title') ? old('title') : $service->title }}" required>
                                     @if ($errors->has('title'))
                                         <div class="help-block danger">
                                             {{ $errors->first('title') }}
@@ -30,7 +30,7 @@
                                     <label for="price" class="label-control">Price</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">$</div>
-                                        <input type="text" name="price" class="form-control" id="price" value="{{ $service->price }}" required>
+                                        <input type="text" name="price" class="form-control" id="price" value="{{ number_format((old('price') ? old('price') : $service->price), 2) }}" required>
                                     </div>
                                     @if ($errors->has('price'))
                                         <div class="help-block danger">

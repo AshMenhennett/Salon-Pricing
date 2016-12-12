@@ -51,6 +51,10 @@ Pricing list (top)
 Pricing list (bottom)
 ![All Prices- bottoml](https://cloud.githubusercontent.com/assets/9494635/20857451/fd68f99a-b97c-11e6-978a-ac72544d0fd1.PNG)
 
+##Routes
+![Routes](https://cloud.githubusercontent.com/assets/9494635/21078251/3b477af2-bfb8-11e6-8882-f7dbcceaf167.PNG)
+Thanks to [Pretty Routes](https://github.com/garygreen/pretty-routes).
+
 ## Installation & Configuration
 If you would like to install this project, treat it as you would any other Laravel application, keeping in mind some additional crucial environment variables:
 - ```APP_URL``` : the url of the application. This variable is used to link to the application.
@@ -63,7 +67,8 @@ Further steps:
 - Set the ```APP_ENV``` environment variable to ```production``` when the app is on a live sever, to force HTTPS connections on all routes.
 
 ##Packages
-- [Fractal](https://github.com/spatie/laravel-fractal)
+- [Laravel Fractal](https://github.com/spatie/laravel-fractal)
+- [Pretty Routes](https://github.com/garygreen/pretty-routes)
 
 ##Disclaimer
 - Prices, within the database and Vue components are of type ```float```, feel free to enhance the trailing points' accuracy by changing the type to ```double```. However, I have chosen to stick with ```float``` type, as there is no real advantage, considering the limitations in rounding up floating point numbers to the nearest floating point value (, given the number of trailing decimals to keep intact) in JavaScript.

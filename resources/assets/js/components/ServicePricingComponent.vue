@@ -27,7 +27,7 @@
                     <h4 class="cat-name">{{ category.category }}</h4>
                     <ul class="list-group">
                         <li class="list-group-item" v-for="service in category.services">
-                            <strong>{{ service.title }}</strong> : ${{ service.price }}
+                            <strong>{{ service.title }}</strong> : ${{ service.price.toFixed(2) }}
                             <span class="right-side-price-controls">
                                 <input type="number" v-model="service.qty_selected" min="1">
                                 <a href="#" @click.prevent="(!service.has_qty_added) ? addPrice(service) : subPrice(service)" class="btn" v-bind:class="(!service.has_qty_added) ? ' btn-success' : ' btn-danger'">{{ (!service.has_qty_added) ? 'ADD' : 'REMOVE' }}</a>
@@ -71,7 +71,7 @@
             fetchServices () {
                 return this.$http.get('/services/fetch').then((response) => {
                     // getting all services, listed under their category.
-                    // data structure: {"data": [{category: string, services: [{service1, ..., ...}]}]}
+                    // data structure: [{"data": [{category: string, services: [{service1}, {...}, {...}]}, ..., ....]}]
                     this.categories = response.body;
                     for (var i = 0; i < this.categories.data.length; i++) {
                         for (var j = 0; j < this.categories.data[i].services.length; j++) {

@@ -27,11 +27,21 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * Each User has many products.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function products()
     {
         return $this->hasMany(Product::class);
     }
 
+    /**
+     * Each User has many services.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function services()
     {
         return $this->hasMany(Service::class);

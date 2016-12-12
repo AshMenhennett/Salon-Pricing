@@ -29,7 +29,7 @@
                         <h4 class="cat-name">{{ category.category }}</h4>
                         <ul class="list-group">
                             <li v-for="product in category.products" class="list-group-item">
-                                <strong>{{ product.name }}</strong> : ${{ product.price }}
+                                <strong>{{ product.name }}</strong> : ${{ product.price.toFixed(2) }}
                                 <span class="right-side-price-controls">
                                     <input type="number" v-model="product.qty_selected" min="1">
                                     <a href="#" @click.prevent="(!product.has_qty_added) ? addPrice(product) : subPrice(product)" class="btn" v-bind:class="(!product.has_qty_added) ? ' btn-success' : ' btn-danger'">{{ (!product.has_qty_added) ? 'ADD' : 'REMOVE' }}</a>
@@ -74,7 +74,7 @@
             fetchProducts () {
                 return this.$http.get('/products/fetch').then((response) => {
                     // getting all products, listed under their brand and category.
-                    // data structure: {"data": [{brand_name: string, categories: [{category: string, products: [{prod1, ..., ...}]}]}]}
+                    // data structure: [{"data": [{brand_name: string, categories: [{category: string, products: [{prod1}, {...}, {...}]}, ..., ...]}, ..., ...]}]
                     this.brands = response.body;
                     for (var i = 0; i < this.brands.data.length; i++) {
                         for (var j = 0; j < this.brands.data[i].categories.length; j++) {
