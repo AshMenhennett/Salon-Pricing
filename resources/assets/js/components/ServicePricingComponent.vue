@@ -27,7 +27,7 @@
                     <h4 class="cat-name">{{ category.category }}</h4>
                     <ul class="list-group">
                         <li class="list-group-item" v-for="service in category.services">
-                            <strong>{{ service.title }}</strong> : ${{ service.price.toFixed(2) }}
+                            <strong>{{ service.title }}</strong> : ${{ parseFloat(service.price).toFixed(2) }}
                             <span class="right-side-price-controls">
                                 <input type="number" v-model="service.qty_selected" min="1">
                                 <a href="#" @click.prevent="(!service.has_qty_added) ? addPrice(service) : subPrice(service)" class="btn" v-bind:class="(!service.has_qty_added) ? ' btn-success' : ' btn-danger'">{{ (!service.has_qty_added) ? 'ADD' : 'REMOVE' }}</a>
@@ -44,7 +44,7 @@
 
             <footer v-if="categories.data.length" class="total-price-footer">
                 <div v-if="totalPriceErr"><strong>There was an error with the discount. Please remove and re-apply the discount.</strong></div>
-                <span class="total-price" v-bind:class="(totalPriceErr === true) ? 'text-danger' : ''" v-bind:style="(totalPriceErr === true) ? 'text-decoration: line-through' : ''">${{ total.toFixed(2).replace('-', '') }} AUD</span>
+                <span class="total-price" v-bind:class="(totalPriceErr === true) ? 'text-danger' : ''" v-bind:style="(totalPriceErr === true) ? 'text-decoration: line-through' : ''">${{ parseFloat(total).toFixed(2).replace('-', '') }} AUD</span>
                 <br />
                 <a href="#" @click.prevent="clear()" class="clear-price">Reset</a>
             </footer>

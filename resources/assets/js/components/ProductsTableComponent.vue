@@ -19,7 +19,7 @@
                         </thead>
                         <tbody>
                              <tr v-for="(product, productIndex) in category.products">
-                                <td>{{ product.name }}</td>  <td>${{ product.price.toFixed(2) }}</td> <td><a href="#" @click.prevent="destroy(brandIndex, categoryIndex, productIndex, product.id)" class="pull-right text-danger manipulate-link"><span class="glyphicon glyphicon-remove"></span></a> &nbsp; <a v-bind:href="'/products/' + product.id + '/edit'" class="pull-right text-info manipulate-link"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                <td>{{ product.name }}</td>  <td>${{ parseFloat(product.price).toFixed(2) }}</td> <td><a href="#" @click.prevent="destroy(brandIndex, categoryIndex, productIndex, product.id)" class="pull-right text-danger manipulate-link"><span class="glyphicon glyphicon-remove"></span></a> &nbsp; <a v-bind:href="'/products/' + product.id + '/edit'" class="pull-right text-info manipulate-link"><span class="glyphicon glyphicon-pencil"></span></a></td>
                             </tr>
                         </tbody>
                     </table>

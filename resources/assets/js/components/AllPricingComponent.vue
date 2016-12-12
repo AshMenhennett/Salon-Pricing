@@ -48,7 +48,7 @@
                     <h4 class="cat-name">{{ category.category }}</h4>
                     <ul class="list-group">
                         <li class="list-group-item" v-for="service in category.services">
-                            <strong>{{ service.title }}</strong> : ${{ service.price.toFixed(2) }}
+                            <strong>{{ service.title }}</strong> : ${{ parseFloat(service.price).toFixed(2) }}
                             <span class="right-side-price-controls">
                                 <input type="number" v-model="service.qty_selected" min="1">
                                 <a href="#" @click.prevent="(!service.has_qty_added) ? addServicePrice(service) : subServicePrice(service)" class="btn" v-bind:class="(!service.has_qty_added) ? ' btn-success' : ' btn-danger'">{{ (!service.has_qty_added) ? 'ADD' : 'REMOVE' }}</a>
@@ -77,7 +77,7 @@
                         <h4 class="cat-name">{{ category.category }}</h4>
                         <ul class="list-group">
                             <li v-for="product in category.products" class="list-group-item">
-                                <strong>{{ product.name }}</strong> : ${{ product.price.toFixed(2) }}
+                                <strong>{{ product.name }}</strong> : ${{ parseFloat(product.price).toFixed(2) }}
                                 <span class="right-side-price-controls">
                                     <input type="number" v-model="product.qty_selected" min="1">
                                     <a href="#" @click.prevent="(!product.has_qty_added) ? addProductPrice(product) : subProductPrice(product)" class="btn" v-bind:class="(!product.has_qty_added) ? ' btn-success' : ' btn-danger'">{{ (!product.has_qty_added) ? 'ADD' : 'REMOVE' }}</a>
@@ -97,13 +97,13 @@
             <footer v-if="serviceCategories.data.length || productBrands.data.length" class="total-price-footer">
                 <div v-if="servicesTotalPriceErr"><strong>There was an error with the service discount. Please remove and re-apply the discount.</strong></div>
                 <div v-if="productsTotalPriceErr"><strong>There was an error with the product discount. Please remove and re-apply the discount.</strong></div>
-                <span class="total-price" v-bind:class="(servicesTotalPriceErr === true || productsTotalPriceErr === true) ? 'text-danger' : ''" v-bind:style="(servicesTotalPriceErr === true || productsTotalPriceErr === true) ? 'text-decoration: line-through' : ''">${{ (servicesTotal + productsTotal).toFixed(2).replace('-', '') }} AUD</span>
+                <span class="total-price" v-bind:class="(servicesTotalPriceErr === true || productsTotalPriceErr === true) ? 'text-danger' : ''" v-bind:style="(servicesTotalPriceErr === true || productsTotalPriceErr === true) ? 'text-decoration: line-through' : ''">${{ parseFloat(parseFloat(servicesTotal) + parseFloat(productsTotal)).toFixed(2).replace('-', '') }} AUD</span>
                 <br />
                 Service total:
-                <span class="subtotal-price" v-bind:class="(servicesTotalPriceErr === true) ? 'text-danger' : ''" v-bind:style="(servicesTotalPriceErr === true) ? 'text-decoration: line-through' : ''">${{ (servicesTotal).toFixed(2).replace('-', '') }} AUD</span>
+                <span class="subtotal-price" v-bind:class="(servicesTotalPriceErr === true) ? 'text-danger' : ''" v-bind:style="(servicesTotalPriceErr === true) ? 'text-decoration: line-through' : ''">${{ parseFloat(servicesTotal).toFixed(2).replace('-', '') }} AUD</span>
                 <br />
                 Product total:
-                <span class="subtotal-price" v-bind:class="(productsTotalPriceErr === true) ? 'text-danger' : ''" v-bind:style="(productsTotalPriceErr === true) ? 'text-decoration: line-through' : ''">${{ (productsTotal).toFixed(2).replace('-', '') }} AUD</span>
+                <span class="subtotal-price" v-bind:class="(productsTotalPriceErr === true) ? 'text-danger' : ''" v-bind:style="(productsTotalPriceErr === true) ? 'text-decoration: line-through' : ''">${{ parseFloat(productsTotal).toFixed(2).replace('-', '') }} AUD</span>
                 <br />
                 <a href="#" @click.prevent="clear()" class="clear-price">Reset</a>
             </footer>
