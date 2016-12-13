@@ -4,19 +4,17 @@ This is a repository for a beauty salon (product and service) pricing list, buil
 
 ##Highlights
 The application uses Factal, via the ```spatie/laravel-fractal``` package and has been utilized to create an internal API for the retrieval of a complex data structure.
-The data is accessible by registered users at ```products/fetch``` and ```services/fetch```.
+The data is accessible by registered users at ```/products/fetch``` and ```/services/fetch```.
 
 Vue has been used to create the reactive front-end components that utilize the API.
 
 ## Functionality
 - Allows user to register and create products and services.
-- Each User may have many products and services.
-- Each Product and Service belongs to one User.
-- Services are defined by a ```user_id```, ```title``` , ```category``` and ```price```.
-- Products are defined by a ```user_id```, ```brand```, ```name```, ```category``` and ```price```.
-- Products and Services, once created, can be edited and deleted via the 'backend' UI (```/products``` or ```/services/```).
-- All products and services are available for viewing, in a price listing UI (```/prices/services```, ```prices/products``` or ```prices/all```), seperate to the 'backend' view. *```/prices/all``` being a view including all products & services.
-- The price listing view has the option to add a quantity of items to the total price, as well as removing a specified quantity of the item from the total price.
+- Services are defined by a ```title``` , ```category``` and ```price```.
+- Products are defined by a ```brand```, ```name```, ```category``` and ```price```.
+- Products and Services, once created, can be edited and deleted via the 'backend' UI (```/products``` or ```/services```).
+- All products and services are available for viewing, in a price listing UI (```/prices/services```, ```prices/products``` or ```/prices/all```), seperate to the 'backend' view. *```/prices/all``` being a view including all products & services.*
+- The price listing view has the option to add a quantity of any item (```Product``` or ```Service```) to the total price, as well as removing a specified quantity of the item from the total price.
 - Products and Services may be sorted by brand and category, respectively, in the 'backend' view, as well as the pricing list view.
 - Products and Services may be discounted via the UI, using predefined values as per the project specifications.
 
