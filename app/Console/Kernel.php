@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->command('monitor:check-uptime')->everyMinute();
+        $schedule->command('monitor:check-uptime')->everyTenMinutes();
     }
 
     /**
