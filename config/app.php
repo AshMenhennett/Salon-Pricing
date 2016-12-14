@@ -167,7 +167,6 @@ return [
          * Package Service Providers...
          */
         Spatie\Fractal\FractalServiceProvider::class,
-        Spatie\UptimeMonitor\UptimeMonitorServiceProvider::class,
 
         /*
          * Application Service Providers...
