@@ -31,9 +31,13 @@ The ```allowed_dollar_amount```  uses the following pattern: ```/^\d{0,5}(\.\d{2
 If you would like to install this project, treat it as you would any other Laravel application:
 - Clone the repo.
 - Install dependencies: ```composer install``` (also, ```npm install```, if you need).
-- Configure environment variables- ```.env```.
+- Configure environment variables- ```.env``` (see below).
 - Generate application key ```php artisan key:generate```.
 - Run Laravel migrations- ```php artisan migrate```.
+
+The [Laravel Uptime Monitor](https://github.com/spatie/laravel-uptime-monitor) is *currently* a dependency, used for checking the uptime of applications residing at given URLs.
+If you do not wish to utilize this feature, simply remove the command schedule in ```App\Console\Kernel```, ```monitor:check-uptime```.
+If you are wanting to use this uptime monitor feature, have a read of the [documentation](https://github.com/spatie/laravel-uptime-monitor).
 
 Make sure you configure these environment variables:
 - ```APP_URL``` : the url of the application. This variable is used to link to the application.
@@ -73,6 +77,7 @@ Thanks to [Pretty Routes](https://github.com/garygreen/pretty-routes)
 
 ##Packages
 - [Laravel Fractal](https://github.com/spatie/laravel-fractal)
+- [Laravel Uptime Monitor](https://github.com/spatie/laravel-uptime-monitor)
 
 ##Disclaimer
 - Prices, within the database and Vue components are of type ```float```, feel free to enhance the trailing points' accuracy by changing the type to ```double```. However, I have chosen to stick with ```float``` type, as there is no real advantage, considering the limitations in rounding up floating point numbers to the nearest floating point value (, given the number of trailing decimals to keep intact) in JavaScript.
