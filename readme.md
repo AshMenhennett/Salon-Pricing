@@ -28,7 +28,14 @@ The ```dollars``` validation rule uses the following pattern: ```/^\d{0,5}(\.\d{
 The ```allowed_dollar_amount```  uses the following pattern: ```/^\d{0,5}(\.\d{2})?$/```, to verify that a value has a maximum of 5 whole numbers, preceeding the ```.``` and two decimal places.
 
 ## Installation & Configuration
-If you would like to install this project, treat it as you would any other Laravel application, keeping in mind some additional crucial environment variables:
+If you would like to install this project, treat it as you would any other Laravel application:
+- Clone the repo.
+- Install dependencies: ```composer install``` (also, ```npm install```, if you need).
+- Configure environment variables- ```.env```.
+- Generate application key ```php artisan key:generate```.
+- Run Laravel migrations- ```php artisan migrate```.
+
+Make sure you configure these environment variables:
 - ```APP_URL``` : the url of the application. This variable is used to link to the application.
 - ```MAIL_FROM_EMAIL``` and ```MAIL_FROM_NAME```: the 'from' email address and name. This is used for sending out emails.
 - ```COPY_NAME``` and ```COPY_URL```: the text and link in footer, used for dev details.
@@ -73,3 +80,6 @@ Thanks to [Pretty Routes](https://github.com/garygreen/pretty-routes)
 - It is possible for total prices, shown in footer at ```/prices/all```, ```/prices/services``` and ```/prices/products``` to be off by, at most, 1/2 cent. This is due to prices not being rounded up before being displayed. Instead, total prices are 'trimmed' down with ```n.toFixed(2)```. I have also removed any possible ```-``` preceeding the total price. A preceeding ```-``` may appear, if all items are removed from the total. The resulting code is ```n.toFixed(2).replace('-', '')```.
 
 *Please do not use the associated legal views, if they still exist in this repository (terms.blade.php and privacy.blade.php). Use at your own peril.*
+
+##License
+[MIT](https://s3-ap-southeast-2.amazonaws.com/ashleymenhennett/LICENSE)
