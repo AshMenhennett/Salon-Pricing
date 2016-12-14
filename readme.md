@@ -27,6 +27,17 @@ The ```dollars``` validation rule uses the following pattern: ```/^\d{0,5}(\.\d{
 
 The ```allowed_dollar_amount```  uses the following pattern: ```/^\d{0,5}(\.\d{2})?$/```, to verify that a value has a maximum of 5 whole numbers, preceeding the ```.``` and two decimal places.
 
+## Installation & Configuration
+If you would like to install this project, treat it as you would any other Laravel application, keeping in mind some additional crucial environment variables:
+- ```APP_URL``` : the url of the application. This variable is used to link to the application.
+- ```MAIL_FROM_EMAIL``` and ```MAIL_FROM_NAME```: the 'from' email address and name. This is used for sending out emails.
+- ```COPY_NAME``` and ```COPY_URL```: the text and link in footer, used for dev details.
+
+*Remember to either remove references to the legal views routes, or add in your own views under ```legal.terms``` and ```legal.privacy```*
+
+Further steps:
+- Set the ```APP_ENV``` environment variable to ```production``` when the app is on a live sever, to force HTTPS connections on all routes.
+
 ## Screenshots
 ###Adding Items
 Adding services 'backend'
@@ -52,17 +63,6 @@ Pricing list (bottom)
 ##Routes
 ![Routes](https://cloud.githubusercontent.com/assets/9494635/21089629/b1216afe-c089-11e6-90cc-e17efed057a4.PNG)
 Thanks to [Pretty Routes](https://github.com/garygreen/pretty-routes)
-
-## Installation & Configuration
-If you would like to install this project, treat it as you would any other Laravel application, keeping in mind some additional crucial environment variables:
-- ```APP_URL``` : the url of the application. This variable is used to link to the application.
-- ```MAIL_FROM_EMAIL``` and ```MAIL_FROM_NAME```: the 'from' email address and name. This is used for sending out emails.
-- ```COPY_NAME``` and ```COPY_URL```: the text and link in footer, used for dev details.
-
-*Remember to either remove references to the legal views routes, or add in your own views under ```legal.terms``` and ```legal.privacy```*
-
-Further steps:
-- Set the ```APP_ENV``` environment variable to ```production``` when the app is on a live sever, to force HTTPS connections on all routes.
 
 ##Packages
 - [Laravel Fractal](https://github.com/spatie/laravel-fractal)
