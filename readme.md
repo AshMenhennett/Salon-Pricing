@@ -80,3 +80,6 @@ Thanks to [Pretty Routes](https://github.com/garygreen/pretty-routes)
 - It is possible for total prices, shown in footer at ```/prices/all```, ```/prices/services``` and ```/prices/products``` to be off by, at most, 1/2 cent. This is due to prices not being rounded up before being displayed. Instead, total prices are 'trimmed' down with ```n.toFixed(2)```. I have also removed any possible ```-``` preceeding the total price. A preceeding ```-``` may appear, if all items are removed from the total. The resulting code is ```n.toFixed(2).replace('-', '')```.
 
 *Please do not use the associated legal views, if they still exist in this repository (terms.blade.php and privacy.blade.php). Use at your own peril.*
+
+##License
+[MIT](https://s3-ap-southeast-2.amazonaws.com/ashleymenhennett/LICENSE)
