@@ -36,6 +36,7 @@ If you would like to install this project, treat it as you would any other Larav
 - Run Laravel migrations- ```php artisan migrate```.
 
 Make sure you configure these environment variables:
+- ```APP_URL``` : the url of the application. This variable is used to link to the application.
 - ```MAIL_FROM_EMAIL``` and ```MAIL_FROM_NAME```: the 'from' email address and name. This is used for sending out emails.
 - ```COPY_NAME``` and ```COPY_URL```: the text and link in footer, used for dev details.
 
