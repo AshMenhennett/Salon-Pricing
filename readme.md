@@ -71,7 +71,7 @@ Pricing list (bottom)
 ![Routes](https://cloud.githubusercontent.com/assets/9494635/21089629/b1216afe-c089-11e6-90cc-e17efed057a4.PNG)
 Thanks to [Pretty Routes](https://github.com/garygreen/pretty-routes)
 
-##Packages
+##Additional Packages
 - [Laravel Fractal](https://github.com/spatie/laravel-fractal)
 
 ##Disclaimer
