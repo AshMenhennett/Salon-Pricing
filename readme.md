@@ -3,7 +3,7 @@
 This is a repository for a beauty salon (product and service) pricing list, built with Laravel 5.3 and Vue 2.
 
 ##Highlights
-The application uses Factal, via the ```spatie/laravel-fractal``` package and has been utilized to create an internal API for the retrieval of a complex data structure.
+The application uses Fractal, via the ```spatie/laravel-fractal``` package and has been utilized to create an internal API for the retrieval of a complex data structure.
 The data is accessible by registered users at ```/products/fetch``` and ```/services/fetch```.
 
 Vue has been used to create the reactive front-end components that utilize the API.
