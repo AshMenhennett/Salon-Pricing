@@ -14,8 +14,6 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\ClearCompiledViews::class,
-
-        Commands\SendEmails::class,
     ];
 
     /**
