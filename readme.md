@@ -1,6 +1,6 @@
 # Beauty Salon Pricing
 
-This is a repository for a beauty salon (product and service) pricing list, built with Laravel 5.3 and Vue 2.
+This is a repository for a beauty salon pricing app, built with Laravel 5.3 and Vue 2.
 
 ##Highlights
 The application uses Fractal, via the ```spatie/laravel-fractal``` package and has been utilized to create an internal API for the retrieval of a complex data structure.
