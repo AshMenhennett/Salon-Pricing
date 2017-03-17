@@ -5,8 +5,9 @@ This is a repository for a beauty salon pricing app, built with Laravel 5.3 and 
 ##Highlights
 The application uses Fractal, via the ```spatie/laravel-fractal``` package and has been utilized to create an internal API for the retrieval of a complex data structure.
 The data is accessible by registered users at ```/products/fetch``` and ```/services/fetch```.
+You can find the implementation of the complex data structure in ```App\Http\Controllers\ProductsController``` and ```App\Http\Controllers\ServicesController```.
 
-Vue has been used to create the reactive front-end components that utilize the API.
+Vue has been used to create the reactive front-end components that consume the API.
 
 ## Functionality
 - Allows user to register and create products and services.
