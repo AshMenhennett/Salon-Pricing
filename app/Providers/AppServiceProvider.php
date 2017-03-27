@@ -39,5 +39,8 @@ class AppServiceProvider extends ServiceProvider
         if (env('APP_ENV') === 'production') {
             $this->app['request']->server->set('HTTPS', true);
         }
+
+        $this->app->alias('bugsnag.logger', \Illuminate\Contracts\Logging\Log::class);
+        $this->app->alias('bugsnag.logger', \Psr\Log\LoggerInterface::class);
     }
 }

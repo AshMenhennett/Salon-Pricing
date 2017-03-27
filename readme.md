@@ -39,6 +39,7 @@ Make sure you configure these environment variables:
 - ```APP_URL``` : the url of the application. This variable is used for linking to the application in emails.
 - ```MAIL_FROM_EMAIL``` and ```MAIL_FROM_NAME```: the 'from' email address and name. This is used for sending out emails.
 - ```COPY_NAME``` and ```COPY_URL```: the text and link in footer, used for dev details.
+- ```BUGSNAG_API_KEY```: your API key to use the Bugsnag service. *Not required. If you are not using this service, just remove the bugsnag dependency in ```composer.json```, config entries in ```config/app.php``` and alias in ```App\Providers\AppServiceProvider``` register method. Then run ```composer update```.*
 
 *Remember to either remove references to the legal views routes, or add in your own views under ```legal.terms``` and ```legal.privacy```*
 
@@ -73,6 +74,7 @@ Thanks to [Pretty Routes](https://github.com/garygreen/pretty-routes)
 
 ##Additional Packages
 - [Laravel Fractal](https://github.com/spatie/laravel-fractal)
+- [Bugsnag](https://bugsnag.com)
 
 ##Disclaimer
 - Prices, within the database and Vue components are of type ```float```, feel free to enhance the trailing points' accuracy by changing the type to ```double```. However, I have chosen to stick with ```float``` type, as there is no real advantage, considering the limitations in rounding up floating point numbers to the nearest floating point value (, given the number of trailing decimals to keep intact) in JavaScript.
