@@ -12,6 +12,11 @@
 |
 */
 
+// route to test bugsnap configuration
+Route::get('/test', function () {
+    Bugsnag::notifyError('ErrorType', 'Test Error');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
